@@ -1,23 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const url = process.env.REACT_APP_API_URL;
+
 export const login = createAsyncThunk('auth/login', async ({ username, password }) => {
-  const response = await axios.post('/login/', { username, password });
+  const response = await axios.post(url + 'login/', { username, password });
   return response.data;
 });
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-  const response = await axios.post('/logout/');
+  const response = await axios.post(url + 'logout/');
   return response.data;
 });
 
 export const register = createAsyncThunk('auth/register', async ({ username, email, password, first_name, last_name }) => {
-  const response = await axios.post('/register/', { username, email, password, first_name, last_name  });
+  const response = await axios.post(url + 'register/', { username, email, password, first_name, last_name  });
   return response.data;
 });
 
 export const checkUserLoggedIn = createAsyncThunk('auth/checkUserLoggedIn', async () => {
-  const response = await axios.get('/check_user_logged_in/');
+  const response = await axios.get(url + 'check_user_logged_in/');
   return response.data;
 });
 

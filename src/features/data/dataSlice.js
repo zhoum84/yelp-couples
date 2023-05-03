@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const url = process.env.REACT_APP_API_URL;
+
 // Define the initial state for the slice
 const initialState = {
     resturants: [],
@@ -14,7 +16,7 @@ const initialState = {
 export const getResturantsData = createAsyncThunk(
   'data/getResturantsData',
   async () => {
-    const response = await axios.get('/get-resturants/');
+    const response = await axios.get(url + 'get-resturants/');
     return response.data;
   }
 );
@@ -23,7 +25,7 @@ export const getResturantsData = createAsyncThunk(
 export const getResturantsDataByIds = createAsyncThunk(
   'data/getResturantsDataByIds',
   async (ids) => {
-    const response = await axios.get(`/get-resturants-list/?ids=${ids.join(',')}`);
+    const response = await axios.get(url + `get-resturants-list/?ids=${ids.join(',')}`);
     return response.data;
   }
 );
@@ -32,7 +34,7 @@ export const getResturantsDataByIds = createAsyncThunk(
 export const getListItems = createAsyncThunk(
   'data/getListItems',
   async () => {
-    const response = await axios.get('/get-list-items');
+    const response = await axios.get(url + 'get-list-items');
     return response.data;
   }
 );
@@ -41,7 +43,7 @@ export const getListItems = createAsyncThunk(
 export const createListItem = createAsyncThunk(
   'data/createListItem',
   async (data) => {
-    const response = await axios.post('/create-list/', data);
+    const response = await axios.post(url + 'create-list/', data);
     return response.data;
   }
 );
@@ -50,7 +52,7 @@ export const createListItem = createAsyncThunk(
 export const updateListItem = createAsyncThunk(
   'data/updateListItem',
   async (data) => {
-    const response = await axios.put('/update-item/', data);
+    const response = await axios.put(url + 'update-item/', data);
     return response.data;
   }
 );
@@ -59,20 +61,20 @@ export const updateListItem = createAsyncThunk(
 export const deleteListItem = createAsyncThunk(
   'data/deleteListItem',
   async (id) => {
-    const response = await axios.delete(`/delete-list/?id=${id}`);
+    const response = await axios.delete(url + `delete-list/?id=${id}`);
     return response.data;
   }
 );
 
 // Create Group
 export const createGroup = createAsyncThunk('group/create', async (groupData) => {
-    const response = await axios.post('/api/create_group/', groupData);
+    const response = await axios.post(url + 'api/create_group/', groupData);
     return response.data;
   });
   
   // Add User to Group
   export const addUserToGroup = createAsyncThunk('group/addUser', async (userData) => {
-    const response = await axios.post('/api/add_user_to_group/', userData);
+    const response = await axios.post(url + 'api/add_user_to_group/', userData);
     return response.data;
   });
 
