@@ -5,15 +5,24 @@ import { useEffect, useState } from 'react';
 import { FaMapMarkerAlt, FaShare, FaStar, FaRegStar } from 'react-icons/fa';
 import '../index.css';
 import Rating from './Rating';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import Map from './Map';
 
 function Restaurant() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const dispatch = useDispatch();
   const [restaurantsData, setRestaurantsData] = useState([]);
-  const [positionMap, setPositionMap] = useState([]);
   const [ratings, setRatings] = useState(0);
+  const [showMap, setShowMap] = useState(false);
+
+  const handleOpenMap = () => {
+    setShowMap(true);
+  };
+
+  const handleCloseMap = () => {
+    setShowMap(false);
+  };
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -71,7 +80,13 @@ function Restaurant() {
             <div><p>Rating: {restaurant.rating}</p></div>
             <div className="map-link">
               <a href="#">
-                <FaMapMarkerAlt />
+    {/* Map goes here */}
+    <div>
+      {/* render your restaurant listings here */}
+      <button onClick={handleOpenMap}>View Map</button>
+      {restaurantsData.length > 0 ?showMap && <Map latitude={restaurant.latitude} longitude={restaurant.longitude} handleClose={handleCloseMap}/>:''}
+    </div>
+  
               </a>
             </div>
             <div className="share-link">

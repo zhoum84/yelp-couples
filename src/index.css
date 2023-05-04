@@ -387,13 +387,13 @@ body {
 .restaurant {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgb(218, 55, 55);
+  border: 2px solid rgb(218, 55, 55);
   padding: 15px;
   width:25vw;
   border-radius: 7px;
   margin-left: 10vw;
   margin-top:5vh;
-  
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .head {
@@ -413,6 +413,7 @@ text-align: center;
   justify-content: center;
   width: 20vw;
   border-radius: 1em;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .rating-container {
@@ -478,31 +479,27 @@ button {
   flex-direction: row;
 }
 
-.map-container {
+.modal {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
-  z-index: 9999;
-  transition: height 0.3s ease-in-out;
+  top: auto;
+  z-index: 20;
 }
 
-.map-container button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #f8f8f8;
-  border: none;
-  border-top: 1px solid #ccc;
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.map-container .leaflet-container {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.3s ease-in-out;
+.modal-content {
+  height: calc(100vh - 60px);
+  padding: 20px;
+  overflow-y: scroll;
 }
 
-.map-container .leaflet-container.leaflet-container-expanded {
-  height: 300px;
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
