@@ -10,7 +10,7 @@ function Restaurant() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const dispatch = useDispatch();
-  const restaurantsData = useSelector(state => state.data.resturantsData);
+  const [restaurantsData, setRestaurantsData] = useState([]);
   
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -25,26 +25,25 @@ function Restaurant() {
     );
   }, []);
 
-useEffect(() => {
-  navigator.geolocation.getCurrentPosition((position) => {
-    const { latitude, longitude } = position.coords;
-    dispatch(getResturantsData({ data: { latitude, longitude } }))
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
-}, [dispatch]);
+  useEffect(() => {
+    if (latitude && longitude) {
+      dispatch(getResturantsData({ latitude:latitude, longitude:longitude }))
+        .unwrap()
+        .then((response) => {
+          setRestaurantsData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [dispatch, latitude, longitude]);
 
   useEffect(() => {
-    console.log(restaurantsData);
+    if (restaurantsData.length > 0) {
+      console.log(restaurantsData);
+    }
   }, [restaurantsData]);
-  
-  useEffect(() => {
-    console.log(latitude, longitude);
-  }, [latitude, longitude]);
+
 
   const reviews = [
     {
@@ -70,46 +69,46 @@ useEffect(() => {
 
   const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYCo57E9jUcyxQKDtJgH4K_AqeL89k7DJtuQ&usqp=CAU'
   return (
-    <div className="restaurant">
-
-        <h3 className='head'>Italian Bistro</h3>
-
-      <div className="image-container">
-        <img className='img' src={imageUrl} alt='name' />
-      </div>
-      <div className="rating-container">
-        <div className="stars"><Rating /></div>
-      
-        <div className="map-link">
-          <a href="#">
-            <FaMapMarkerAlt />
-          </a>
-        </div>
-        <div className="share-link">
-          <a href="#">
-            <FaShare />
-          </a>
-        </div>
-      </div>
-      <div className="reviews">
-        <div className="reviews-header" onClick={toggleCollapse}>
-          
-          <div className="collapse-icon"><h4>{isCollapsed ? '+' : '-'} Reviews</h4></div>
-        </div>
-        {!isCollapsed && (
-          <div className="reviews-body">
-            {reviews.map((review, index) => (
-              <div key={index} className="review">
-                <div className="review-author">{review.author}</div>
-                <div className="review-content">{review.content}</div>
-              </div>
-            ))}
+    <div className='RestaurantsContainer'>
+      {restaurantsData.map((restaurant, index) => (
+        <div className="restaurant" key={index}>
+          {restaurantsData.length > 0 ? <h3 className='head'>{restaurant.name}</h3> : ''}
+          <div className="image-container">
+            {restaurantsData.length > 0 ? <img className='img' src={restaurant.image} alt={restaurant.name} />: ''}
           </div>
-        )}
-      </div>
-      </div>
-
+          <div className="rating-container">
+            <div className="stars"><Rating /></div>
+            <div className="map-link">
+              <a href="#">
+                <FaMapMarkerAlt />
+              </a>
+            </div>
+            <div className="share-link">
+              <a href="#">
+                <FaShare />
+              </a>
+            </div>
+          </div>
+          <div className="reviews">
+            <div className="reviews-header" onClick={toggleCollapse}>
+              <div className="collapse-icon"><h4>{isCollapsed ? '+' : '-'} Reviews</h4></div>
+            </div>
+            {!isCollapsed && (
+              <div className="reviews-body">
+                {reviews.map((review, index) => (
+                  <div key={index} className="review">
+                    <div className="review-author">{review.author}</div>
+                    <div className="review-content">{review.content}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
+
 
 export default Restaurant;

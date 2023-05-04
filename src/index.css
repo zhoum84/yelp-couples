@@ -377,6 +377,12 @@ body {
 .conformer {
     
 }
+.RestaurantsContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 10vw;
+}
 
 .restaurant {
   display: flex;
@@ -386,6 +392,7 @@ body {
   width:25vw;
   border-radius: 7px;
   margin-left: 10vw;
+  margin-top:5vh;
   
 }
 
