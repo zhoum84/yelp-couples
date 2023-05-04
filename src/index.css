@@ -477,3 +477,32 @@ button {
   display: flex;
   flex-direction: row;
 }
+
+.map-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 9999;
+  transition: height 0.3s ease-in-out;
+}
+
+.map-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.map-container .leaflet-container {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+.map-container .leaflet-container.leaflet-container-expanded {
+  height: 300px;
+}

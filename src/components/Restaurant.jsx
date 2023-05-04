@@ -1,17 +1,20 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getResturantsData } from '../features/data/dataSlice'
-import { useEffect,useState } from 'react';
-import { FaMapMarkerAlt, FaShare } from 'react-icons/fa';
-import '../index.css'
+import { getResturantsData } from '../features/data/dataSlice';
+import { useEffect, useState } from 'react';
+import { FaMapMarkerAlt, FaShare, FaStar, FaRegStar } from 'react-icons/fa';
+import '../index.css';
 import Rating from './Rating';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 function Restaurant() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const dispatch = useDispatch();
   const [restaurantsData, setRestaurantsData] = useState([]);
-  
+  const [positionMap, setPositionMap] = useState([]);
+  const [ratings, setRatings] = useState(0);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -27,12 +30,12 @@ function Restaurant() {
 
   useEffect(() => {
     if (latitude && longitude) {
-      dispatch(getResturantsData({ latitude:latitude, longitude:longitude }))
+      dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
         .unwrap()
-        .then((response) => {
+        .then(response => {
           setRestaurantsData(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     }
@@ -40,44 +43,32 @@ function Restaurant() {
 
   useEffect(() => {
     if (restaurantsData.length > 0) {
-      console.log(restaurantsData);
+      const restaurantRatings = restaurantsData.map(restaurant => restaurant.rating);
+      setRatings(restaurantRatings);
     }
   }, [restaurantsData]);
 
-
-  const reviews = [
-    {
-      author: "John Smith",
-      content: "Great food and great service. Would highly recommend!"
-    },
-    {
-      author: "Sarah Johnson",
-      content: "Food was okay but service was slow."
-    },
-    {
-      author: "Bob Thompson",
-      content: "Terrible experience. Food was cold and tasted old."
-    }
-  ];
+  const reviews = [    { author: 'John Smith', content: 'Great food and great service. Would highly recommend!' },    { author: 'Sarah Johnson', content: 'Food was okay but service was slow.' },    { author: 'Bob Thompson', content: 'Terrible experience. Food was cold and tasted old.' }  ];
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
-  
 
-  const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYCo57E9jUcyxQKDtJgH4K_AqeL89k7DJtuQ&usqp=CAU'
   return (
-    <div className='RestaurantsContainer'>
+    <div className="RestaurantsContainer">
       {restaurantsData.map((restaurant, index) => (
         <div className="restaurant" key={index}>
-          {restaurantsData.length > 0 ? <h3 className='head'>{restaurant.name}</h3> : ''}
+          {restaurantsData.length > 0 ? <h3 className="head">{restaurant.name}</h3> : ''}
           <div className="image-container">
-            {restaurantsData.length > 0 ? <img className='img' src={restaurant.image} alt={restaurant.name} />: ''}
+            {restaurantsData.length > 0 ? <img className="img" src={restaurant.image} alt={restaurant.name} /> : ''}
           </div>
           <div className="rating-container">
-            <div className="stars"><Rating /></div>
+          <Rating rating={restaurant.rating} />
+
+
+            <div><p>Rating: {restaurant.rating}</p></div>
             <div className="map-link">
               <a href="#">
                 <FaMapMarkerAlt />
@@ -104,7 +95,26 @@ function Restaurant() {
               </div>
             )}
           </div>
+          {/* <div className="map-container">
+  <button onClick={() => setMapVisible(!mapVisible)}>
+    {mapVisible ? "Hide Map" : "Show Map"}
+  </button>
+  {mapVisible && <Map />}
+</div> */}
+  {/* {latitude && longitude  ? <MapContainer center={positionMap} zoom={13} scrollWheelZoom={false}>
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker position={positionMap}>
+      <Popup>
+        A pretty CSS3 popup. <br /> Easily customizable.
+      </Popup>
+    </Marker>
+  </MapContainer>: ''} */}
+  
         </div>
+        
       ))}
     </div>
   );
