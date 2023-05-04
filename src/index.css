@@ -377,3 +377,96 @@ body {
 .conformer {
     
 }
+
+.restaurant {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(218, 55, 55);
+  padding: 15px;
+  width:25vw;
+  border-radius: 7px;
+  margin-left: 10vw;
+  
+}
+
+.head {
+text-align: center;
+  
+}
+
+.image-container {
+  display: flex;
+  object-fit: contain;
+  object-position: center;
+  margin-left: 1em;
+}
+
+.image-container img {
+  display: flex;
+  justify-content: center;
+  width: 20vw;
+  border-radius: 1em;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.stars {
+  margin-right: 10px;
+}
+
+.map-link,
+.share-link {
+  margin-right: 10px;
+}
+
+.map-link a,
+.share-link a {
+  color: #667;
+}
+
+.map-link a:hover,
+.share-link a:hover {
+  color: #000;
+}
+
+.reviews-header {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.review {
+  margin-top: 10px;
+}
+
+.review-author {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.review-content {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+.off {
+  color: #ccc;
+}
+
+.collapse-icon{
+  display: flex;
+  flex-direction: row;
+}

@@ -12,14 +12,20 @@ const initialState = {
     error: null,
   };
 
-// Define the thunk for getting resturants data
+
+
 export const getResturantsData = createAsyncThunk(
   'data/getResturantsData',
-  async () => {
-    const response = await axios.get(url + 'get-resturants/');
-    return response.data;
+  async ({ latitude, longitude }, thunkAPI) => {
+    try {
+      const response = await axios.post('/get-resturants/', { latitude, longitude });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
 );
+
 
 // Define the thunk for getting resturants data by IDs
 export const getResturantsDataByIds = createAsyncThunk(
