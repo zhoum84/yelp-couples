@@ -603,11 +603,8 @@
     align-items: center;
     margin-top: 20px;
   }
-=======
-  --white-color: #fafafb;
-  --background-color: #17171e;
-  --grey-color: #e8e8ed;
-}
+
+
 
 * {
   box-sizing: border-box;

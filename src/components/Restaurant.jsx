@@ -67,7 +67,7 @@ function Restaurant(props) {
               <div className="reviews">
                 <div className="reviews-header" onClick={props.toggleCollapse}>
                   <div className="collapse-icon">
-                    <h4 onClick={props.handleCreateListItem}>{props.isCollapsed ? "+" : "-"} Add to List</h4>
+                    <h4 >{props.isCollapsed ? "+" : "-"} Add to List</h4>
                   </div>
                 </div>
               </div>
