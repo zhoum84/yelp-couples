@@ -67,7 +67,7 @@ export default function Invite() {
         console.log(data);
       })
     setHasGroup(true);
-    setCurrentMembers([user1]);
+    setCurrentMembers([{ name: user1, status: "Group Creator" }]);
   }
 
   const sendInvite = (e) => {
@@ -116,8 +116,8 @@ export default function Invite() {
           {hasGroup ? (
             <>
               <form onSubmit={(e) => sendInvite(e)}>
-                <h1>Invite member to group:</h1>
-                <h2>You can have up to 4 members within the group</h2>
+                <h1 className="invite-text">Invite member to group:</h1>
+                <h2 className="invite-text">You can have up to 4 members within the group</h2>
                 <div>
                   <div className="search">
                     <input
@@ -133,12 +133,10 @@ export default function Invite() {
                     </button>
                   </div>
                 </div>
-                <label>
-                  <h1>current members:</h1>
-                </label>
+                <h1 className="invite-text">current members:</h1>
                 {currentMembers.map((member, index) => {
                   return <>
-                    <h2 key={index}>{member.name + " (" + member.status + ")"}</h2>
+                    <h2 className="invite-text" key={index}>{member.name + " (" + member.status + ")"}</h2>
                   </>
                 })}
               </form>
@@ -147,7 +145,7 @@ export default function Invite() {
             <>
               {/* if not, present with an add group button ==> group name ==> get groupID as repsponse */}
               <div className="no-group">
-                <h1>No groups yet.</h1>
+                <h1 className="invite-text">No groups yet.</h1>
                 <button className="btn" onClick={handleCreateGroup}>Create Group</button>
               </div>
             </>

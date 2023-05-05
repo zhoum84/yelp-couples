@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-h1, h2, h3, label {
+.invite-text {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   margin: 10px;
