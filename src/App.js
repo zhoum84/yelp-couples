@@ -14,11 +14,10 @@ function App() {
           <Sidebar/>
         <div className='container'>
           <Routes>
-            <Route path='/' element={<Login/>}/>
-            <Route path='/home' element={<Home/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/' element={<Home/>}/>
             <Route path='/search/yoursearch' element={<SearchResults/>}/>
           </Routes>
-          <Restaurant />
         </div>
       </Router>
     </>
