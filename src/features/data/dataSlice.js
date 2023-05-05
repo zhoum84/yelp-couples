@@ -18,7 +18,7 @@ export const getResturantsData = createAsyncThunk(
   'data/getResturantsData',
   async ({ latitude, longitude }, thunkAPI) => {
     try {
-      const response = await axios.post('/get-resturants/', { latitude, longitude });
+      const response = await axios.post(url + 'get-resturants/', { latitude:latitude, longitude: longitude });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

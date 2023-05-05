@@ -16,13 +16,21 @@ function App() {
           <Sidebar/>
           <div className="container"> 
           <Routes>
+
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/search/yoursearch' element={<SearchResults/>}/>
+          </Routes>
+        </div>
+
             <Route path='/' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route path='/home' element={<Home/>}/>
+            <Route path='/home' element={</>}/>
             <Route path='/form' element={<FormPage/>}/>
             <Route path='/search/yoursearch' element={<SearchResults/>}/>
           </Routes>
           </div>
+
       </Router>
     </>
   );
