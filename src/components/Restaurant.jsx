@@ -20,7 +20,7 @@ function Restaurant() {
       },
       error => {
         console.log(error);
-        alert('Please enable location access for the app to work correctly');
+        // alert('Please enable location access for the app to work correctly');
       }
     );
   }, []);
