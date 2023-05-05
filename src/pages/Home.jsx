@@ -5,7 +5,7 @@ import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
 import { createListItem } from '../features/data/dataSlice';
-import Restaurant from "../components/Restaurant"
+
 
 
 const Home = () => {
@@ -38,7 +38,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (latitude && longitude !== '') {
+    if (latitude && longitude < 0) {
       dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
         .unwrap()
         .then(response => {
@@ -74,21 +74,21 @@ const Home = () => {
     setShowMap(false);
   };
 
-  const handleCreateListItem = (user_id, group_id, items) => {
-    dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))
-      .then((response) => {
-        console.log('List and Item created successfully');
-        // handle success
-      })
-      .catch((error) => {
-        console.log(error);
-        // handle error
-      }
-      );
-  };
+  // const handleCreateListItem = (user_id, group_id, items) => {
+  //   dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))
+  //     .then((response) => {
+  //       console.log('List and Item created successfully');
+  //       // handle success
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       // handle error
+  //     }
+  //     );
+  // };
   return (
     <div>
-      {restaurantsData && <Restaurant handleCreateListItem={handleCreateListItem} toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
+      {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>
 
