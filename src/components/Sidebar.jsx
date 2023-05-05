@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaHome, FaArrowLeft, FaArrowRight, FaCocktail, FaHistory, FaStar, FaUserPlus, FaBell, FaPlusCircle } from "react-icons/fa";
+import Invite from "./Invite";
 
 function Sidebar() {
 
@@ -57,7 +58,7 @@ function Sidebar() {
         </li>
         <li className="features-item ">
           <FaUserPlus className="features-item-icon"/>
-          <span className="features-item-text">Invite Partner</span>
+          <Invite />
           <span className="tooltip">Sent</span>
         </li>
         <li className="features-item">
