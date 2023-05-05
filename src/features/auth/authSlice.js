@@ -5,6 +5,7 @@ const url = process.env.REACT_APP_API_URL;
 
 export const login = createAsyncThunk('auth/login', async ({ username, password }) => {
   const response = await axios.post(url + 'login/', { username, password });
+  console.log(response);
   return response.data;
 });
 

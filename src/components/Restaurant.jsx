@@ -7,7 +7,26 @@ import '../index.css';
 import Rating from './Rating';
 import Map from './Map';
 
+
 function Restaurant(props) {
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const dispatch = useDispatch();
+  const restaurantsData = useSelector(state => state.data.resturantsData);
+  
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      },
+      error => {
+        console.log(error);
+        // alert('Please enable location access for the app to work correctly');
+      }
+    );
+  }, []);
+
 
 
 

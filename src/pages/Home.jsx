@@ -1,9 +1,12 @@
+
 import React from 'react';
 import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
 import { createListItem } from '../features/data/dataSlice';
+import Restaurant from "../components/Restaurant"
+
 
 const Home = () => {
 
@@ -88,6 +91,7 @@ const Home = () => {
       {restaurantsData && <Restaurant handleCreateListItem={handleCreateListItem} toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>
+
   )
 }
 
