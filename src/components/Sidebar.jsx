@@ -13,6 +13,7 @@ import {
   FaPlusCircle,
   FaList
 } from "react-icons/fa";
+import Invite from "./Invite";
 
 function Sidebar() {
   const [toggle, setToggle] = useState();
@@ -79,7 +80,7 @@ function Sidebar() {
         </li>
         <li className="features-item ">
           <FaUserPlus className="features-item-icon" />
-          <span className="features-item-text">Invite Partner</span>
+          <Invite />
           <span className="tooltip">Invite Partner</span>
         </li>
         <li className="features-item">
