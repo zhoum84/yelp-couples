@@ -32,9 +32,10 @@ body {
   font-weight: 300;
 }
 .container {
-  margin: 150px auto;
+  margin:  auto;
   max-width: 960px;
   color: #000;
+  
 }
 
 .sidebar {
@@ -369,13 +370,13 @@ body {
   display: flex;
   font-weight: bold;
   font-size: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   margin-left: 25%;
 }
 
 /*this conforms things to the header and sidebar */
 .conformer {
-    
+    color: black;
 }
 
 .restaurant {
@@ -469,4 +470,44 @@ button {
 .collapse-icon{
   display: flex;
   flex-direction: row;
+}
+
+.login-container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+}
+.form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form p {
+  color: RGB(5, 99, 193);
+  cursor: pointer;
+}
+.form p:hover{
+  text-decoration: underline;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.form-group label {
+  text-align: left;
+  display: block;
+  margin: 0 0 5px 3px;
 }

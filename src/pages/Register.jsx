@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux'
 import { login } from '../features/auth/authSlice'
 
-const Login = () => {
+const Register = () => {
 
   const [inputs, setInputs] = useState({
     username: '',
@@ -45,8 +45,8 @@ const Login = () => {
 
   }
 
-  const onRegister = () => {
-    navigate('/register');
+  const onClick = () => {
+    navigate('/');
   }
 
   return (
@@ -82,11 +82,11 @@ const Login = () => {
       <div className='form-group'>
         <button className='btn btn-block'>Login</button>
       </div>
-      <p onClick={onRegister}>Don't have an account? Register here.</p>
+      <p onClick={onClick}>Don't have an account? Register here.</p>
       
     </form>
   </section>
 </>  )
 }
 
-export default Login
+export default Register
