@@ -38,7 +38,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (latitude && longitude < 0) {
+    if (latitude && longitude !== 0) {
       dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
         .unwrap()
         .then(response => {
