@@ -1,6 +1,8 @@
+import Restaurant from "../components/Restaurant"
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <div><Restaurant/></div>
   )
 }
 
