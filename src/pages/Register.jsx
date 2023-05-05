@@ -2,16 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux'
-import { login } from '../features/auth/authSlice'
+import { register } from '../features/auth/authSlice'
 
 const Register = () => {
 
   const [inputs, setInputs] = useState({
     username: '',
+    email: '',
     password: '',
+    first_name: '',
+    last_name: ''
   });
   
-  const {username, password} = inputs;
+  const {username, email, password, first_name, last_name} = inputs;
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,12 +30,10 @@ const Register = () => {
   const onSubmit = (e) =>{
     e.preventDefault()
 
-    const loginInfo = {
-      username,
-      password,
-    }
+    const registerInfo = {
+      username, email, password, first_name, last_name    }
 
-    dispatch(login({username: username, password:password}))
+    dispatch(register(registerInfo))
     .unwrap()
     .then((user) => {
       // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
@@ -51,9 +52,46 @@ const Register = () => {
 
   return (
     <>
-    <div className='title'>Login</div>
+    <div className='title'>Register</div>
     <section className='form'>
     <form onSubmit={onSubmit}>
+    <div className='form-group'>
+        <input
+          type='first_name'
+          className='form-control'
+          id='first_name'
+          name='first_name'
+          value={first_name}
+          onChange={handleChange}
+          placeholder='Enter your first name'
+          required
+        />
+      </div>
+      <div className='form-group'>
+        <input
+          type='last_name'
+          className='form-control'
+          id='last_name'
+          name='last_name'
+          value={last_name}
+          onChange={handleChange}
+          placeholder='Enter your last name'
+          required
+        />
+      </div>
+      
+      <div className='form-group'>
+        <input
+          type='email'
+          className='form-control'
+          id='email'
+          name='email'
+          value={email}
+          onChange={handleChange}
+          placeholder='Enter your email address'
+          required
+        />
+      </div>
       <div className='form-group'>
         <input
           type='username'
@@ -80,9 +118,9 @@ const Register = () => {
       </div>
 
       <div className='form-group'>
-        <button className='btn btn-block'>Login</button>
+        <button className='btn btn-block'>Register</button>
       </div>
-      <p onClick={onClick}>Don't have an account? Register here.</p>
+      <p onClick={onClick}>Have an account? Login here.</p>
       
     </form>
   </section>

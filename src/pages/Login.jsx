@@ -32,13 +32,15 @@ const Login = () => {
       password,
     }
 
-    dispatch(login({username: username, password:password}))
+    dispatch(login(loginInfo))
     .unwrap()
     .then((user) => {
-      // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
-      // getting a good response from our API or catch the AsyncThunkAction
-      // rejection to show an error message
-      toast.success(`Logged in as ${user.username}`)
+      console.log('logged in' + user.username);
+      toast(`Logged in as ${user.username}`, {
+        type: "success",
+        autoClose: 1500,
+        position: "top-center"
+      })      
       navigate('/home')
     })
     .catch(toast.error)
