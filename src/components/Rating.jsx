@@ -8,11 +8,11 @@ function Rating({ rating }) {
     return (
       <div className="stars">
         {rating && [...Array(filledStars)].map((_, index) => (
-          <FaStar key={index} color="#ffc107" />
+          <FaStar key={index} color="#ffc107" size={20}/>
         ))}
-        {hasHalfStar && <FaStarHalfAlt color="#ffc107" />}
+        {hasHalfStar && <FaStarHalfAlt color="#ffc107" size={20}/>}
         {rating && [...Array(5 - filledStars - (hasHalfStar ? 1 : 0))].map((_, index) => (
-          <FaStar key={index + filledStars} color="#c4c4c4" />
+          <FaStar key={index + filledStars} color="#c4c4c4" size={20}/>
         ))}
       </div>
     );

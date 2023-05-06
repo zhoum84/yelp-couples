@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { FaMapMarkerAlt, FaShare, FaStar, FaRegStar } from 'react-icons/fa';
 import '../index.css';
 import Rating from './Rating';
-import Map from './Map';
+// import Map from './Map';
 import { createListItem } from '../features/data/dataSlice';
 import { useNavigate, Link } from "react-router-dom";
 
@@ -93,7 +93,7 @@ function Restaurant(props) {
                 <div className="map-link">
                   <a href="#"></a>
                 </div>
-                <div>
+                <div className=''>
                     <p>{(restaurant.resturant_distance * 0.000621371).toFixed(2)} miles</p>
                   </div>
                 <div className="share-link">

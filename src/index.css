@@ -393,6 +393,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-left:1vw;
+    justify-content: center;
     
   }
   
@@ -410,6 +411,7 @@
   
   .head {
     text-align: center;
+    font-size: 24px;
   }
   
   .image-container {
@@ -430,8 +432,10 @@
   .rating-container {
     display: flex;
     align-items: center;
+    
     justify-content: space-between;
     margin-top: 10px;
+
   }
   
   .stars {
@@ -1014,7 +1018,7 @@ body {
 .image-container img {
   display: flex;
   justify-content: center;
-  width: 20vw;
+  width: 24vw;
   border-radius: 1em;
 }
 
@@ -1027,6 +1031,7 @@ body {
 
 .stars {
   margin-right: 10px;
+  margin-left:15px
 }
 
 .map-link,
@@ -1195,3 +1200,6 @@ button {
   margin-top: 20px;
 }
 
+.distance-text{
+  
+}
