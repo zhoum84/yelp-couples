@@ -1188,7 +1188,7 @@ button {
   transform: scale(1);
 }
 
-form, .no-group {
+.no-group {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -18,11 +18,11 @@ function App() {
           <div className="container"> 
           <Routes>
 
-            <Route path='/login' element={<Login/>}/>
+            <Route path='/' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route path='/' element={<Home/>}/>
+            <Route path='/home' element={<Home/>}/>
             <Route path='/form' element={<FormPage/>}/>
-            <Route path='/search/yoursearch' element={<SearchResults/>}/>
+            <Route path='/search/:item' element={<SearchResults/>}/>
             <Route path='/list/:user_id/:group_id' element={<List />} />
           </Routes>
           </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
   FaUser,
@@ -17,15 +17,19 @@ import Invite from "./Invite";
 
 function Sidebar() {
   const [toggle, setToggle] = useState();
+  const [user, setUser] = useState();
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    const username = JSON.parse(localStorage.getItem("user"));
+    if(username){
+    setUser(username.length? username[0].name : username.name);
+  }})
   const user_id = '1'
   const group_id = '6c295814-6ee5-40f0-b40a-368ba36160cb'
 
-  const linkClick = (link) => {
-    navigate(`/${link}`);
-  };
+  
 
   const handleClick = () => {
     setToggle(!toggle);
@@ -37,7 +41,7 @@ function Sidebar() {
       <div className="logo-name-wrapper">
           <div className="logo-name">
             <FaUser className="logo-name__icon" />
-            <span className="logo-name__name">Your Name</span>
+            <span className="logo-name__name">{user}</span>
           </div>
         <button className={"logo-name__button"} onClick={handleClick}>
           {toggle ? (
@@ -60,7 +64,7 @@ function Sidebar() {
 
       <ul className="features-list">
         <li className="features-item inbox active">
-          <Link to= {`/list/${user_id}/${group_id}`} className="features-item-link">
+          <Link to={`/list/${user_id}/${group_id}`} className="features-item-link" style={{ textDecoration: 'none', color: 'white' }} >
           <FaCocktail className="features-item-icon" />
           <span className="features-item-text">My Restaurants</span>
           <span className="tooltip">My Restaurants</span>
@@ -88,16 +92,6 @@ function Sidebar() {
           <Invite />
           <span className="tooltip">Invite Partner</span>
         </li>
-        <li className="features-item">
-          <FaBell className="features-item-icon" />
-          <span className="notification-wrapper has-message"> </span>
-          <span className="features-item-text">Notifications</span>
-          <span className="inbox-number">99</span>
-          <span className="tooltip">99 Notifications</span>
-        </li>
-      </ul>
-      <ul className="chat-list">
-        <div className="chat-header">Filler </div>
       </ul>
     </div>
   );

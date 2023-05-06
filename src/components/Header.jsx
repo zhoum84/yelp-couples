@@ -36,7 +36,7 @@ function Header() {
     }
   return (
     <div className="header">
-      <div>Placeholder text</div>
+      <div style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>Welcome!</div>
       <div className='header-wrapper'>
         <div className='title'>Yelp For Couples</div>
         <div className="search">
@@ -49,7 +49,7 @@ function Header() {
       <ul>
           {!isUserLoggedIn ?
           <li>
-            <Link to='/'>
+            <Link to='/' style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>
               <FaSignInAlt /> Login
             </Link>
           </li>
