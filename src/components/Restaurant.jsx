@@ -10,6 +10,7 @@ import { createListItem } from '../features/data/dataSlice';
 import { useNavigate, Link } from "react-router-dom";
 
 
+
 function Restaurant(props) {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -37,11 +38,11 @@ function Restaurant(props) {
       items: [{
         resturant_id: restaurant.resturant_id,
         resturant_name: restaurant.resturant_name,
-        resturant_image: restaurant.resturant_image,
+        // resturant_image: restaurant.resturant_image,
         resturant_url: restaurant.resturant_url,
         resturant_categories: restaurant.resturant_categories.toString(),
         resturant_rating: restaurant.resturant_rating,
-        resturant_address: restaurant.resturant_address,
+        // resturant_address: restaurant.resturant_address,
         resturant_distance: restaurant.resturant_distance,
         user_rating: 1,
 
@@ -70,7 +71,6 @@ function Restaurant(props) {
     <div>
       {props.restaurantsData.length > 0 && (
         <div className="restaurantsContainer">
-          
           {props.restaurantsData.map((restaurant, index) => (
         
             <div className="restaurant" key={index}>
