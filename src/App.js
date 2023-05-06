@@ -18,9 +18,9 @@ function App() {
           <div className="container"> 
           <Routes>
 
-            <Route path='/' element={<Login/>}/>
+            <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route path='/home' element={<Home/>}/>
+            <Route path='/' element={<Home/>}/>
             <Route path='/form' element={<FormPage/>}/>
             <Route path='/search/:item' element={<SearchResults/>}/>
             <Route path='/list/:user_id/:group_id' element={<List />} />
