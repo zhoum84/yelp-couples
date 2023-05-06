@@ -18,6 +18,8 @@ import Invite from "./Invite";
 function Sidebar() {
   const [toggle, setToggle] = useState();
   const [user, setUser] = useState();
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+
 
   const navigate = useNavigate();
 
@@ -25,10 +27,9 @@ function Sidebar() {
     const username = JSON.parse(localStorage.getItem("user"));
     if (username) {
       setUser(username.length ? username[0].name : username.name);
+      setIsUserLoggedIn(true)
     }
   });
-  const user_id = "1";
-  const group_id = "6c295814-6ee5-40f0-b40a-368ba36160cb";
 
   const handleClick = () => {
     setToggle(!toggle);
@@ -38,10 +39,10 @@ function Sidebar() {
   return (
     <div className={toggle ? "sidebar collapse" : "sidebar"}>
       <div className="logo-name-wrapper">
-        <div className="logo-name">
+        {isUserLoggedIn && (<div className="logo-name">
           <FaUser className="logo-name__icon" />
           <span className="logo-name__name">{user}</span>
-        </div>
+        </div>)}
         <button className={"logo-name__button"} onClick={handleClick}>
           {toggle ? (
             <FaArrowRight className="logo-name__icon" />
@@ -50,8 +51,10 @@ function Sidebar() {
           )}
         </button>
       </div>
+      <div className="message">
 
-      <Link to="/home" style={{ textDecoration: "none", color: "white" }}>
+      <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+
         <div className="message">
           <FaHome className="message-icon" />
           <span className="message-text">Home</span>
@@ -62,7 +65,8 @@ function Sidebar() {
       <ul className="features-list">
         <li className="features-item inbox active">
           <Link
-            to={`/list/${user_id}/${group_id}`}
+            to={isUserLoggedIn? `/list/${user.id}/${user.geroup_id[0]}` : "/login "}
+
             className="features-item-link"
             style={{ textDecoration: "none", color: "white" }}
           >
@@ -71,7 +75,7 @@ function Sidebar() {
             <span className="tooltip">My Restaurants</span>
           </Link>
         </li>
-        <li className="features-item">
+        {/* <li className="features-item">
           <FaHistory className="features-item-icon" />
           <span className="features-item-text">Previously Visited</span>
           <span className="tooltip">Previously Visited</span>
@@ -80,11 +84,12 @@ function Sidebar() {
           <FaStar className="features-item-icon" />
           <span className="features-item-text">Starred</span>
           <span className="tooltip">Starred</span>
-        </li>
+        </li> */}
         <li className="features-item ">
           <Link to="/form" style={{ textDecoration: "none", color: "white" }}>
             <FaList className="features-item-icon" />
-            <span className="features-item-text">Get Recommendations</span>
+            <span className="features-item-text"> Find </span>
+
             <span className="tooltip">Get Recommendations</span>
           </Link>
         </li>
@@ -94,6 +99,7 @@ function Sidebar() {
           <span className="tooltip">Manage Group</span>
         </li>
       </ul>
+    </div>
     </div>
   );
 }

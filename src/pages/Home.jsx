@@ -16,8 +16,8 @@ const Home = () => {
   const [showMap, setShowMap] = useState(false);
   const dispatch = useDispatch();
   const [isUserLocation, SetIsUserLocation] = useState(false)
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [latitude, setLatitude] = useState('40.776676');
+  const [longitude, setLongitude] = useState('-73.971321');
   
   // const user = JSON.parse(localStorage.getItem("user"))
   // const [userId, setUserId] = useState();
@@ -30,7 +30,7 @@ const Home = () => {
       position => {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
-       
+        SetIsUserLocation(true)
       },
       error => {
         console.log(error);
@@ -41,10 +41,8 @@ const Home = () => {
     );
   }, []);
 
-
-  useEffect(() => {
-    if (latitude && longitude !== '') {
-      dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
+  const getResturantData = () => {
+    dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
         .unwrap()
         .then(response => {
           setRestaurantsData(response.data);
@@ -52,10 +50,19 @@ const Home = () => {
         .catch(error => {
           console.log(error);
         });
-        
+  }
+
+
+  useEffect(() => {
+    getResturantData()
+  },[getResturantData])
+
+  useEffect(() => {
+    if(isUserLocation){
+    getResturantData()
     }
-  }, [ latitude, longitude,setRestaurantsData, dispatch]);
-  
+  },[getResturantData])
+
 
 
 
