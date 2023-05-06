@@ -34,7 +34,7 @@ const Home = () => {
       },
       error => {
         console.log(error);
-        alert('Please enable location access for the app to work correctly');
+        // alert('Please enable location access for the app to work correctly');
         setLatitude('40.776676')
         setLongitude('-73.971321')
       }

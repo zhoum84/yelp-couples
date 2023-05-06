@@ -14,11 +14,14 @@ const FormPage = () => {
   const [index, setIndex] = useState(0);
   const handleClick = (e) => {
     e.preventDefault();
-    setInputs((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-    console.log(inputs);
+    setInputs((prevState) => {
+      const newData = {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+      console.log(newData);
+      return newData;
+    });
   };
 
   const [display, setDisplay] = useState({
