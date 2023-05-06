@@ -33,8 +33,9 @@ const Login = () => {
     dispatch(login(loginInfo))
       .unwrap()
       .then((user) => {
-        console.log("logged in" + user.username);
-        localStorage.setItem("user", JSON.stringify(user));
+        console.log("groups: ",(user.groups_id).length > 0)
+        const data = {'id': user.user.id, 'username': user.user.username, 'group_id': (user.groups_id).length > 0? user.groups_id[0] : ""}
+        localStorage.setItem("user",JSON.stringify(data))
         toast(`Logged in as ${user.username}`, {
           type: "success",
           autoClose: 1500,

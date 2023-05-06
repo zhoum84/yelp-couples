@@ -12,9 +12,6 @@ function Header() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
 
   const [user, setUser] = useState();
-    const handleLogout = () => {
-        navigate('/');
-    }
 
     useEffect(()=>{
       const username = JSON.parse(localStorage.getItem("user"));
@@ -24,9 +21,14 @@ function Header() {
     }})
   
     const onPress = () =>{
-      dispatch(logout());
+      dispatch(logout())
+      .unwrap()
+      .then(()=>{
+        localStorage.removeItem("user")
+        setIsUserLoggedIn(false)
+        navigate('/')
+      });
       setUser('')
-      setIsUserLoggedIn(false)
       navigate('/');
       toast(`Logged out ${user}`, {
         type: "warning",
