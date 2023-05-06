@@ -5,6 +5,7 @@ import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
 import Loader from '../components/Loader';
+import { FaSearch } from 'react-icons/fa';
 
 
 
@@ -96,6 +97,12 @@ const Home = () => {
 
   return (
     <div>
+              {/* <div className="searchGroup">
+        <input type="text" className="searchTerm" placeholder="What are you looking for?"/>
+          <button type="submit" className="searchButton">
+            <FaSearch />
+          </button>
+        </div> */}
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>

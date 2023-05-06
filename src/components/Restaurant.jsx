@@ -13,6 +13,8 @@ import Rating from "./Rating";
 // import Map from './Map';
 import { createListItem } from "../features/data/dataSlice";
 import { useNavigate, Link } from "react-router-dom";
+import './Restaurant.css';
+
 
 function Restaurant(props) {
   const [latitude, setLatitude] = useState(null);
@@ -71,28 +73,26 @@ function Restaurant(props) {
         <div className="restaurantsContainer">
           {props.restaurantsData.map((restaurant, index) => (
             <div className="restaurant" key={index}>
-              {props.restaurantsData.length > 0 ? (
-                <h3 className="head">{restaurant.resturant_name}</h3>
-              ) : (
-                ""
-              )}
+              
               <Link
                 target="_blank"
                 rel="noreferrer"
                 to={restaurant.resturant_url}
               >
                 <div className="image-container">
-                  {props.restaurantsData.length > 0 ? (
-                    <img
-                      className="img"
-                      src={restaurant.resturant_image}
+                  {props.restaurantsData.length > 0 && (
+                    <div
+                      className="cardImg"
+                      style={{backgroundImage: `url(${restaurant.resturant_image})`}}
+                      // src={restaurant.resturant_image}
                       alt={restaurant.resturant_name}
-                    />
-                  ) : (
-                    ""
+                    ></div>
                   )}
                 </div>
               </Link>
+              {props.restaurantsData.length > 0 && (
+                <h3 className="restaurantName">{restaurant.resturant_name}</h3>
+              )}
               <div className="rating-container">
                 <Rating rating={restaurant.resturant_rating} />
                 <div className="map-link">
@@ -118,7 +118,7 @@ function Restaurant(props) {
               </div>
                 
                 <div className="collapse-icon stars">
-                  <h4 onClick={() => handleSubmit(restaurant)}>
+                  <h4 style={{margin: '0'}} onClick={() => handleSubmit(restaurant)}>
                     + Add to List
                   </h4>
                 </div>
