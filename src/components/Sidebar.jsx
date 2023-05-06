@@ -17,11 +17,8 @@ import Invite from "./Invite";
 
 function Sidebar() {
   const [toggle, setToggle] = useState();
-  const [userId, setUserId] = useState();
-  const [userName, setUserName] = useState();
+  const [user, setUser] = useState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
-  const [groupId, setGroupId] = useState()
-
 
 
   const navigate = useNavigate();
@@ -29,9 +26,7 @@ function Sidebar() {
   useEffect(() => {
     const username = JSON.parse(localStorage.getItem("user"));
     if (username) {
-      setUserId(username.id)
-      setUserName(username.username)
-      setGroupId(username.group_id)
+      setUser(username.length ? username[0].name : username.name);
       setIsUserLoggedIn(true)
     }
   });
@@ -46,7 +41,7 @@ function Sidebar() {
       <div className="logo-name-wrapper">
         {isUserLoggedIn && (<div className="logo-name">
           <FaUser className="logo-name__icon" />
-          <span className="logo-name__name">{userName}</span>
+          <span className="logo-name__name">{user}</span>
         </div>)}
         <button className={"logo-name__button"} onClick={handleClick}>
           {toggle ? (
@@ -70,15 +65,11 @@ function Sidebar() {
       <ul className="features-list">
         <li className="features-item inbox active">
           <Link
-<<<<<<< HEAD
-            to={isUserLoggedIn? `/list/${username.user.id}/${username.user.group_id[0]}` : "/login "}
-=======
             to={isUserLoggedIn? (console.log("user: ",userId))
               // `/list/${user.id}/${user.group_id}`)
               : "/login " }
 
               // : "/form"
->>>>>>> 3d86be08a9f3c26f585794d161f335774cad37ac
 
             className="features-item-link"
             style={{ textDecoration: "none", color: "white" }}
