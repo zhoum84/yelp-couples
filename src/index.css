@@ -657,3 +657,10 @@ button {
 
   margin-left: 20px;
 }
+
+.categories{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
