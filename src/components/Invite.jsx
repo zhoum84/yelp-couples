@@ -5,105 +5,59 @@ import { useDispatch } from "react-redux";
 import { FaUserPlus } from "react-icons/fa";
 
 export default function Invite() {
-  const user = "randoUser"
-  const userId = user.length ? user[0].id : user["id"];
-  const user1 = "user1";
-  const group = ({
-    "group_id": "6c295814-6ee5-40f0-b40a-368ba36160cb",
-    "users": [
-      {
-        "name": "test",
-        "status": "Group Creator"
-      },
-      {
-        "name": "test6",
-        "status": "Group Member"
-      },
-      {
-        "name": "xyz@abc.com",
-        "status": "invite sent"
-      }
-    ]
-  })
-  const groupId = group.group_id;
-
-
   const [inviteToggle, setInviteToggle] = useState(false);
   const [newMember, setNewMember] = useState('');
-  const [currentMembers, setCurrentMembers] = useState([]);
-  const [hasGroup, setHasGroup] = useState(false);
+  const [nameChange, setNameChange] = useState('');
   Modal.setAppElement('#root');
   const dispatch = useDispatch();
 
-  const handleMemberChange = (e) => { setNewMember(e.target.value); }
+  const [group_ids, setGroup_ids] = useState([]);
 
   useEffect(() => {
     // check if groupID exists, one call and get groupID + #members
-    const checkUser = {
-      userId: userId
-    }
-    // TODO: change the method when the endpoint is ready
-    dispatch(createGroup(checkUser))
-      .unwrap()
-      .then(data => {
-        console.log(data);
-        setHasGroup(data.group_id ? true : false);
-      })
-    setCurrentMembers(group.users);
-    // setHasGroup(group.group_id ? true : false);
-  }, [dispatch, userId])
+    const userLocalStorage = JSON.parse(localStorage.getItem("user"));
+    console.log("userLocalStorage", userLocalStorage)
+    console.log(group_ids)
+    // setUserId(userLocalStorage.user);
+    // setGroup_ids(userLocalStorage.group);
+  }, []);
 
-  const handleCreateGroup = () => {
-    // otherwise
-    // for creating group with 1 user
-    // what's returned: groupID, userID
-    const createData = {
-      userId: userId,
-      user1: user1
+  const handleMemberChange = (e) => { setNewMember(e.target.value); }
+  const handleNameChange = (e) => { setNameChange(e.target.value); }
+
+  const handleCreateGroup = (e) => {
+    e.preventDefault();
+    const newGroupData = {
+      group_name: nameChange,
+      user1: 1
     }
-    dispatch(createGroup(createData))
+    console.log("before create", newGroupData)
+    dispatch(createGroup(newGroupData))
       .unwrap()
       .then(data => {
-        console.log(data);
+        console.log("create result", data)
+        console.log("group_ids_data", [...group_ids, { pk: data.pk, group_name: data.group_name }]);
+        setGroup_ids([...group_ids, { pk: data.pk, group_name: data.group_name }]);
+        setNameChange('');
       })
-    setHasGroup(true);
-    setCurrentMembers([{ name: user1, status: "Group Creator" }]);
   }
 
   const sendInvite = (e) => {
     e.preventDefault();
-    console.log(currentMembers);
-    // check current members
-    if (currentMembers.length > 3) {
-      alert('You have reached the maximum number of members in a group');
-      return;
-    }
-    // check if new member is already in group
-    if (currentMembers.includes(newMember)) {
-      alert('This member is already in your group');
-      return;
-    }
+    // check current members count?
+    // check if new member is already in group?
 
     // if now full, send data with new member's email ==> post call
     const newMemberData = {
-      userId: userId,
-      groupId: groupId,
-      newUserEmail: newMember
+      user_email: newMember,
+      // user_id: user.user,
+      group_id: group_ids[0].pk
     }
     dispatch(addUserToGroup(newMemberData))
       .unwrap()
       .then(data => {
-        console.log(data)
+        console.log("adduser res", data)
       })
-
-    const newMemberToList = {
-      "name": "test",
-      "status": "Group Creator"
-    }
-    setCurrentMembers([...currentMembers, {
-      "name": newMember,
-      "status": "invite sent"
-    }]);
     setNewMember('');
     setInviteToggle(true);
   };
@@ -113,7 +67,7 @@ export default function Invite() {
       <span className="features-item-text" onClick={() => setInviteToggle(true)}>Manage Group</span>
       <>
         <Modal isOpen={inviteToggle} onRequestClose={() => setInviteToggle(false)}>
-          {hasGroup ? (
+          {group_ids.length > 0 ? (
             <>
               <form onSubmit={(e) => sendInvite(e)}>
                 <h1 className="invite-text">Invite member to group:</h1>
@@ -133,21 +87,44 @@ export default function Invite() {
                     </button>
                   </div>
                 </div>
-                <h1 className="invite-text">current members:</h1>
+                <h1 className="invite-text">Current Group(s):</h1>
+                {group_ids.map((group, index) => {
+                  return <>
+                    <h2 className="invite-text" key={index}>{group.name}</h2>
+                  </>
+                })}
+                {/* <h1 className="invite-text">current members:</h1>
                 {currentMembers.map((member, index) => {
                   return <>
                     <h2 className="invite-text" key={index}>{member.name + " (" + member.status + ")"}</h2>
                   </>
-                })}
+                })} */}
               </form>
+
             </>
           ) : (
             <>
               {/* if not, present with an add group button ==> group name ==> get groupID as repsponse */}
               <div className="no-group">
                 <h1 className="invite-text">No groups yet.</h1>
-                <button className="btn" onClick={handleCreateGroup}>Create Group</button>
               </div>
+              <form onSubmit={(e) => handleCreateGroup(e)}>
+                <div>
+                  <div className="search">
+                    <input
+                      type="text"
+                      className="searchTerm"
+                      placeholder="Create Group"
+                      value={nameChange}
+                        onChange={(e) => handleNameChange(e)}
+                        required
+                    />
+                    <button type="submit" className="searchButton">
+                      <FaUserPlus />
+                    </button>
+                  </div>
+                </div>
+              </form>
             </>
           )}
         </Modal>

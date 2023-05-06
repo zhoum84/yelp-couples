@@ -36,7 +36,7 @@ function Header() {
     }
   return (
     <div className="header">
-      <div>Placeholder text</div>
+      <div style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>Welcome!</div>
       <div className='header-wrapper'>
         <div className='title'><span style={{color:'red', marginLeft:'100px'}}>Resturant </span> &nbsp;Finder <span style={{color:'red'}}>&hearts; </span></div>
         <div className="search">
@@ -49,7 +49,7 @@ function Header() {
       <ul>
           {!isUserLoggedIn ?
           <li>
-            <Link to='/'>
+            <Link to='/login' style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>
               <FaSignInAlt /> Login
             </Link>
           </li>

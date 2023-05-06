@@ -4,7 +4,7 @@ import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
-import { createListItem } from '../features/data/dataSlice';
+import Loader from '../components/Loader';
 
 
 
@@ -19,6 +19,11 @@ const Home = () => {
   const [latitude, setLatitude] = useState('40.776676');
   const [longitude, setLongitude] = useState('-73.971321');
   
+  // const user = JSON.parse(localStorage.getItem("user"))
+  // const [userId, setUserId] = useState();
+  // const [username, setUsername] = useState();
+
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -58,14 +63,13 @@ const Home = () => {
     }
   },[getResturantData])
 
-  
+
+
 
   useEffect(() => {
     const restaurantRatings = restaurantsData.map(restaurant => restaurant.rating);
     setRatings(restaurantRatings);
   }, [restaurantsData]);
-  
-
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -80,18 +84,8 @@ const Home = () => {
     setShowMap(false);
   };
 
-  // const handleCreateListItem = (user_id, group_id, items) => {
-  //   dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))
-  //     .then((response) => {
-  //       console.log('List and Item created successfully');
-  //       // handle success
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // handle error
-  //     }
-  //     );
-  // };
+  
+
   return (
     <div>
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}

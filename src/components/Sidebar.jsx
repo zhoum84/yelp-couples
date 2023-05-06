@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
   FaUser,
@@ -11,7 +11,7 @@ import {
   FaUserPlus,
   FaBell,
   FaPlusCircle,
-  FaList
+  FaList,
 } from "react-icons/fa";
 import Invite from "./Invite";
 
@@ -19,6 +19,7 @@ function Sidebar() {
   const [toggle, setToggle] = useState();
   const [user, setUser] = useState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+
 
   const navigate = useNavigate();
 
@@ -53,6 +54,7 @@ function Sidebar() {
       <div className="message">
 
       <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+
         <div className="message">
           <FaHome className="message-icon" />
           <span className="message-text">Home</span>
@@ -64,6 +66,7 @@ function Sidebar() {
         <li className="features-item inbox active">
           <Link
             to={isUserLoggedIn? `/list/${user.id}/${user.geroup_id[0]}` : "/login "}
+
             className="features-item-link"
             style={{ textDecoration: "none", color: "white" }}
           >
@@ -86,24 +89,15 @@ function Sidebar() {
           <Link to="/form" style={{ textDecoration: "none", color: "white" }}>
             <FaList className="features-item-icon" />
             <span className="features-item-text"> Find </span>
+
             <span className="tooltip">Get Recommendations</span>
           </Link>
         </li>
         <li className="features-item ">
           <FaUserPlus className="features-item-icon" />
           <Invite />
-          <span className="tooltip">Invite Partner</span>
+          <span className="tooltip">Manage Group</span>
         </li>
-        <li className="features-item">
-          <FaBell className="features-item-icon" />
-          <span className="notification-wrapper has-message"> </span>
-          <span className="features-item-text">Notifications</span>
-          <span className="inbox-number">99</span>
-          <span className="tooltip">99 Notifications</span>
-        </li>
-      </ul>
-      <ul className="chat-list">
-        <div className="chat-header">Filler </div>
       </ul>
     </div>
     </div>
