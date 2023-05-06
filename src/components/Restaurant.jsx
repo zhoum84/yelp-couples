@@ -7,6 +7,7 @@ import '../index.css';
 import Rating from './Rating';
 import Map from './Map';
 import { createListItem } from '../features/data/dataSlice';
+import { useNavigate, Link } from "react-router-dom";
 
 
 function Restaurant(props) {
@@ -69,13 +70,16 @@ function Restaurant(props) {
     <div>
       {props.restaurantsData.length > 0 && (
         <div className="restaurantsContainer">
+          
           {props.restaurantsData.map((restaurant, index) => (
+        
             <div className="restaurant" key={index}>
               {props.restaurantsData.length > 0 ? (
                 <h3 className="head">{restaurant.resturant_name}</h3>
               ) : (
                 ""
               )}
+              <Link target ='_blank' rel="noreferrer"to={restaurant.resturant_url}>
               <div className="image-container">
                 {props.restaurantsData.length > 0 ? (
                   <img className="img" src={restaurant.resturant_image} alt={restaurant.resturant_name} />
@@ -83,13 +87,14 @@ function Restaurant(props) {
                   ""
                 )}
               </div>
+              </Link>
               <div className="rating-container">
                 <Rating rating={restaurant.resturant_rating} />
                 <div className="map-link">
                   <a href="#"></a>
                 </div>
                 <div>
-                    <p></p>
+                    <p>{(restaurant.resturant_distance * 0.000621371).toFixed(2)} miles</p>
                   </div>
                 <div className="share-link">
                   <a href="#">
@@ -112,12 +117,18 @@ function Restaurant(props) {
                 <div key={index} className="restaurant-rating">
                   {restaurant.rating}
                 </div>
+                
               ))}
             </>
+            
           )}
+         
         </div>
+        
       )}
+      
     </div>
+    
   );
 }  
 
