@@ -113,10 +113,12 @@ function Restaurant(props) {
                 </div>
               </div>
               <div className="reviews-header" onClick={props.toggleCollapse}>
-                <div className="center-text">
-                  {restaurant.resturant_categories[1]}
-                </div>
-
+              <div className="center-text categories">
+                {restaurant.resturant_categories.map((category, index) => (
+                  <span key={index}>{category}</span>
+                ))}
+              </div>
+                
                 <div className="collapse-icon stars">
                   <h4 onClick={() => handleSubmit(restaurant)}>
                     + Add to List
