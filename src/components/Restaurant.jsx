@@ -15,6 +15,8 @@ import Rating from "./Rating";
 import { createListItem } from "../features/data/dataSlice";
 import { useNavigate, Link } from "react-router-dom";
 
+
+
 function Restaurant(props) {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);

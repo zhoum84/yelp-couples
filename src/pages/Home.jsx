@@ -85,6 +85,7 @@ const Home = () => {
 
   return (
     <div>
+      {/* {restaurantsData && <Search restaurantsData={restaurantsData}/>} */}
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>
