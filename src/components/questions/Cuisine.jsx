@@ -4,7 +4,7 @@ function Cuisine({onClick}) {
 
   return (
     <div className="question">
-      <h3 className="question-title">What is your price range?</h3>
+      <h3 className="question-title">What cuisine are you craving for?</h3>
       <div className="form-group">
         <button className="ans" name="cuisine" value="Italian" onClick={onClick}>
           Italian
