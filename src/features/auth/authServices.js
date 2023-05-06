@@ -4,7 +4,8 @@ import { login, logout, register, checkUserLoggedIn } from './authSlice';
 export const authServices = {
   login: ({ username, password }) =>
     login({ username, password }, { thunkAPI: { client: axios } }).then((response) => {
-      console.log("lol");
+      const data =response.payload
+      console.log('user data:', data)
       localStorage.setItem('user', JSON.stringify(response.payload));
       return response;
     }),

@@ -5,6 +5,7 @@ import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
 import Loader from '../components/Loader';
+import RestaurantSearch from '../components/RestaurantSearch'
 
 
 
@@ -90,6 +91,7 @@ const Home = () => {
     <div>
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
+      {restaurantsData && <RestaurantSearch toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData} restaurantsData={restaurantsData}/>}
     </div>
 
   )

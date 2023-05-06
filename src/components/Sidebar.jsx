@@ -65,7 +65,7 @@ function Sidebar() {
       <ul className="features-list">
         <li className="features-item inbox active">
           <Link
-            to={isUserLoggedIn? `/list/${user.id}/${user.geroup_id[0]}` : "/login "}
+            to={isUserLoggedIn? `/list/${username.user.id}/${username.user.group_id[0]}` : "/login "}
 
             className="features-item-link"
             style={{ textDecoration: "none", color: "white" }}
