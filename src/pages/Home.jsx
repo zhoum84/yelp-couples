@@ -5,7 +5,7 @@ import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
 import Loader from '../components/Loader';
-import RestaurantSearch from '../components/RestaurantSearch'
+
 
 
 
@@ -21,9 +21,9 @@ const Home = () => {
   const [longitude, setLongitude] = useState('-73.971321');
   const [getResturantDataResponse, SetGetResturantDataResponse] = useState(false)
   
-  // const user = JSON.parse(localStorage.getItem("user"))
-  // const [userId, setUserId] = useState();
-  // const [username, setUsername] = useState();
+  const storedData = JSON.parse(localStorage.getItem('user'));
+  const user_id = storedData?.id;
+  const group_id = storedData?.group_id;
 
 
 
@@ -99,7 +99,6 @@ const Home = () => {
     <div>
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
-      {restaurantsData && <RestaurantSearch toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData} restaurantsData={restaurantsData}/>}
     </div>
 
   )

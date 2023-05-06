@@ -57,9 +57,9 @@ export const createListItem = createAsyncThunk(
 
 // Define the thunk for updating a list item
 export const updateListItem = createAsyncThunk(
-  'data/updateListItem',
-  async ({ id, ...data }) => {
-    const response = await axios.put(url + `update-item/${id}/`, data);
+  'listItems/updateListItem',
+  async ({ id, data }) => {
+    const response = await axios.put(url +`list-items/${id}/`, data);
     return response.data;
   }
 );
@@ -169,10 +169,7 @@ export const dataSlice = createSlice({
       })
       .addCase(updateListItem.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const updatedItemIndex = state.listItems.findIndex((item) => item.id === action.payload.id);
-        if (updatedItemIndex !== -1) {
-          state.listItems[updatedItemIndex] = action.payload;
-        }
+        state.updatedItem = action.payload;
         state.isLoading = false;
       })
       .addCase(updateListItem.rejected, (state, action) => {

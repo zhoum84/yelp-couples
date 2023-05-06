@@ -12,14 +12,19 @@ import "../index.css";
 import Rating from "./Rating";
 // import Map from './Map';
 import { createListItem } from "../features/data/dataSlice";
+import updateListItem from '../features/data/dataSlice'
+import { getListItems } from '../features/data/dataSlice'
 import { useNavigate, Link } from "react-router-dom";
+
 
 function Restaurant(props) {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const dispatch = useDispatch();
-  const user_id = "1";
-  const group_id = "deb59915-4efb-492f-994c-04fc378ab5f3";
+  const storedData = JSON.parse(localStorage.getItem('user'));
+  const user_id = storedData?.id;
+  const group_id = storedData?.group_id;
+  const [listItems, setListItems] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -33,7 +38,44 @@ function Restaurant(props) {
       }
     );
   }, []);
+//get list for list ID
+  useEffect(() => {
+    dispatch(getListItems({ user_id, group_id }))
+      .then(response => {
+        setListItems(response.payload);
+      })
+      .then(console.log(listItems))
+      .catch(error => {
+        console.log(error);
+      });
+  }, [dispatch, user_id, group_id]);
 
+//counter for items in list
+  const list = "listItemCounter";
+  let listItemCounter = JSON.parse(localStorage.getItem('list')) || { counter:0 };
+//create initial list  
+  const createList = (data) => {
+    return dispatch(createListItem(data))
+      .then(() => {
+        listItemCounter.counter++;
+        localStorage.setItem('list', JSON.stringify(listItemCounter)); // update localStorage item
+        console.log("successfully created list");
+      })
+      .catch((error) => {
+        console.log("list not successfully created");
+      });
+  }
+ //update list 
+  const updateList = (data, id) => {
+    return dispatch(updateListItem({ id, data }))
+      .then(() => {
+        console.log(id,data);
+      })
+      .catch((error) => {
+        console.log("list not successfully updated");
+      });
+  }
+  console.log(listItemCounter)
   const handleSubmit = (restaurant) => {
     const data = {
       user_id: user_id,
@@ -48,21 +90,20 @@ function Restaurant(props) {
         // resturant_address: restaurant.resturant_address,
         resturant_distance: restaurant.resturant_distance,
         user_rating: 1,
-
-        
-
-
       }]
     };
-
-    dispatch(createListItem(data))
-      .then(() => {
-        console.log("successfully added item to list");
-      })
-      .catch((error) => {
-        console.log("you suck");
-      });
+  // uses vounter to decide if to create or update
+    if (listItemCounter.counter === 0) {
+      
+      createList(data);
+    } else if (listItemCounter.counter < 5) {
+      const id = listItems.id
+      updateList(data, id);
+    } else {
+      alert('You can only have up to 5 items in myRestaurants list')
+    }
   };
+  
 
 
   return (

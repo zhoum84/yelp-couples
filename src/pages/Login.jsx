@@ -42,7 +42,7 @@ const Login = () => {
           position: "top-center",
         });
 
-        navigate("/home");
+        navigate("/");
       })
       .catch(toast.error);
   };
