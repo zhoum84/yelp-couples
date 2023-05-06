@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux'
 import { register } from '../features/auth/authSlice'
 
-const Register = () => {
+const Register = (props) => {
 
   const [inputs, setInputs] = useState({
     username: '',
@@ -36,7 +36,10 @@ const Register = () => {
     dispatch(register(registerInfo))
     .unwrap()
     .then((user) => {
-      // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
+      console.log(user)
+      props.sendRequest(user.user.id)
+  
+        // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
       // getting a good response from our API or catch the AsyncThunkAction
       // rejection to show an error message
       toast.success(`Logged in as ${user.username}`)

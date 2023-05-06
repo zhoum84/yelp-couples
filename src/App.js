@@ -8,24 +8,28 @@ import Register from "./pages/Register";
 import Restaurant from "./components/Restaurant";
 import FormPage from "./pages/FormPage";
 import List from "./pages/List";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState('');
+  const sendRequest = (str) => { setUser(str); }
+
   return (
     <>
       <Router>
           <Header/>
-          <Sidebar/>
-          <div className="container"> 
+          <Sidebar  user={user}/>
+          {/* <div className="container">  */}
           <Routes>
 
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/register' element={<Register/>}/>
-            <Route path='/' element={<Home/>}/>
+            <Route path='/login' element={<Login sendRequest={sendRequest} />}/>
+            <Route path='/register' element={<Register sendRequest={sendRequest} />}/>
+            <Route path='/' element={<Home />}/>
             <Route path='/form' element={<FormPage/>}/>
             <Route path='/search/:item' element={<SearchResults/>}/>
             <Route path='/list/:user_id/:group_id' element={<List />} />
           </Routes>
-          </div>
+          {/* </div> */}
 
       </Router>
     </>

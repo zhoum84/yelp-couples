@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { login } from "../features/auth/authSlice";
 
-const Login = () => {
+const Login = (props) => {
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
@@ -24,6 +24,8 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    props.sendRequest(e.target.value)
 
     const loginInfo = {
       username,

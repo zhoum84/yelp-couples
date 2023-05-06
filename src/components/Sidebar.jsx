@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import Invite from "./Invite";
 
-function Sidebar() {
+function Sidebar(props) {
   const [toggle, setToggle] = useState();
   const [user, setUser] = useState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
@@ -95,7 +95,7 @@ function Sidebar() {
         </li>
         <li className="features-item ">
           <FaUserPlus className="features-item-icon" />
-          <Invite />
+            <Invite user={ props.user} />
           <span className="tooltip">Manage Group</span>
         </li>
       </ul>
