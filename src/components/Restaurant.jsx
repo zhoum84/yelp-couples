@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getResturantsData } from "../features/data/dataSlice";
 import { useEffect, useState } from "react";
 import {
   FaMapMarkerAlt,
@@ -65,7 +64,6 @@ function Restaurant(props) {
       });
   };
 
-  console.log(props.restaurantsData);
 
   return (
     <div>

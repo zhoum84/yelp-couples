@@ -19,6 +19,7 @@ const Home = () => {
   const [isUserLocation, SetIsUserLocation] = useState(false)
   const [latitude, setLatitude] = useState('40.776676');
   const [longitude, setLongitude] = useState('-73.971321');
+  const [getResturantDataResponse, SetGetResturantDataResponse] = useState(false)
   
   // const user = JSON.parse(localStorage.getItem("user"))
   // const [userId, setUserId] = useState();
@@ -27,20 +28,23 @@ const Home = () => {
 
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-        SetIsUserLocation(true)
-      },
-      error => {
-        console.log(error);
-        alert('Please enable location access for the app to work correctly');
-        setLatitude('40.776676')
-        setLongitude('-73.971321')
-      }
-    );
-  }, []);
+    if (!isUserLocation){
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+          SetIsUserLocation(true)
+          SetGetResturantDataResponse(true)
+        },
+        error => {
+          console.log(error);
+          alert('Please enable location access for the app to work correctly');
+          setLatitude('40.776676')
+          setLongitude('-73.971321')
+        }
+      );
+    }
+  }, [setLatitude, setLongitude, SetGetResturantDataResponse]);
 
   const getResturantData = () => {
     dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
@@ -55,14 +59,18 @@ const Home = () => {
 
 
   useEffect(() => {
-    getResturantData()
-  },[getResturantData])
+    if(!getResturantDataResponse && !isUserLocation){
+      getResturantData()
+      SetGetResturantDataResponse(true)
+    }
+  },[getResturantData, SetGetResturantDataResponse])
 
   useEffect(() => {
-    if(isUserLocation){
+    if(isUserLocation && getResturantDataResponse){
     getResturantData()
+    SetGetResturantDataResponse(false)
     }
-  },[getResturantData])
+  },[getResturantData, getResturantDataResponse, isUserLocation])
 
 
 
