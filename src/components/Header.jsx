@@ -36,9 +36,9 @@ function Header() {
     }
   return (
     <div className="header">
-      <div>Placeholder text</div>
+      <div style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>Welcome!</div>
       <div className='header-wrapper'>
-        <div className='title'>Yelp For Couples</div>
+        <div className='title'><span style={{color:'red'}}>Yelp </span> &nbsp;For Couples <span style={{color:'red'}}>&hearts; </span></div>
         <div className="search">
         <input type="text" className="searchTerm" placeholder="What are you looking for?"/>
           <button type="submit" className="searchButton">
@@ -49,7 +49,7 @@ function Header() {
       <ul>
           {!isUserLoggedIn ?
           <li>
-            <Link to='/'>
+            <Link to='/' style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>
               <FaSignInAlt /> Login
             </Link>
           </li>

@@ -14,17 +14,23 @@ const FormPage = () => {
   const [index, setIndex] = useState(0);
   const handleClick = (e) => {
     e.preventDefault();
-    setInputs((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-    console.log(inputs);
+    setInputs((prevState) => {
+      const newData = {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+      
+      setInputs(newData);
+      
+      handleNext(e);
+      return newData;
+    });
   };
 
   const [display, setDisplay] = useState({
-    0: <Cuisine onClick={handleClick} />,
+    0: <Cuisine onClick={handleClick}/>,
     1: <Price onClick={handleClick} />,
-    2: <Distance onClick={handleClick} />,
+    2: <Distance onClick={handleClick}/>,
   });
 
   const handlePrev = (e) => {
@@ -32,7 +38,6 @@ const FormPage = () => {
   };
 
   const handleNext = (e) => {
-    console.log("lol");
     setIndex(index + 1);
   };
 
