@@ -4,7 +4,6 @@ import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
-import Search from '../components/Search';
 import Loader from '../components/Loader';
 
 
@@ -79,26 +78,9 @@ const Home = () => {
   };
 
   
-  //should be able to do something like this but i cant figure it out, so instead I hardcoded it
-  
-  //if(!restaurantsData)
-  //  <Loader/>
 
-  // const handleCreateListItem = (user_id, group_id, items) => {
-  //   dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))
-  //     .then((response) => {
-  //       console.log('List and Item created successfully');
-  //       // handle success
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // handle error
-  //     }
-  //     );
-  // };
   return (
     <div>
-      {/* {restaurantsData && <Search restaurantsData={restaurantsData}/>} */}
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>
