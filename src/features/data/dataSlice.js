@@ -18,7 +18,7 @@ export const getResturantsData = createAsyncThunk(
   'data/getResturantsData',
   async ({ latitude, longitude }, thunkAPI) => {
     try {
-      const response = await axios.post('/get-resturants/', { latitude, longitude });
+      const response = await axios.post(url + 'get-resturants/', { latitude:latitude, longitude: longitude });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -39,8 +39,9 @@ export const getResturantsDataByIds = createAsyncThunk(
 // Define the thunk for getting list items
 export const getListItems = createAsyncThunk(
   'data/getListItems',
-  async () => {
-    const response = await axios.get(url + 'get-list-items');
+  async (params) => {
+    const { user_id, group_id } = params;
+    const response = await axios.get(`${url}get-list-items?user_id=${user_id}&group_id=${group_id}`);
     return response.data;
   }
 );
@@ -57,8 +58,8 @@ export const createListItem = createAsyncThunk(
 // Define the thunk for updating a list item
 export const updateListItem = createAsyncThunk(
   'data/updateListItem',
-  async (data) => {
-    const response = await axios.put(url + 'update-item/', data);
+  async ({ id, ...data }) => {
+    const response = await axios.put(url + `update-item/${id}/`, data);
     return response.data;
   }
 );
@@ -74,15 +75,23 @@ export const deleteListItem = createAsyncThunk(
 
 // Create Group
 export const createGroup = createAsyncThunk('group/create', async (groupData) => {
-    const response = await axios.post(url + 'api/create_group/', groupData);
+    const response = await axios.post(url + 'create_group/', groupData);
     return response.data;
   });
   
   // Add User to Group
   export const addUserToGroup = createAsyncThunk('group/addUser', async (userData) => {
-    const response = await axios.post(url + 'api/add_user_to_group/', userData);
+    const response = await axios.post(url + 'add_user_to_group/', userData);
     return response.data;
   });
+
+  export const getGroup = createAsyncThunk(
+    'group/getGroup',
+    async (groupId) => {
+      const response = await axios.get(`${url}get-group/?group_id=${groupId}`);
+      return response.data;
+    }
+  );
 
 // Define the data slice
 export const dataSlice = createSlice({
@@ -194,7 +203,20 @@ export const dataSlice = createSlice({
       .addCase(addUserToGroup.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(getGroup.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getGroup.fulfilled, (state, action) => {
+        state.loading = false;
+        state.groupData = action.payload;
+      })
+      .addCase(getGroup.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
+
   },
 });
 

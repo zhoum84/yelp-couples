@@ -36,11 +36,14 @@ const Login = () => {
     .unwrap()
     .then((user) => {
       console.log('logged in' + user.username);
+      localStorage.setItem('user', JSON.stringify(user));
       toast(`Logged in as ${user.username}`, {
         type: "success",
         autoClose: 1500,
         position: "top-center"
-      })      
+      })  
+      
+          
       navigate('/home')
     })
     .catch(toast.error)
