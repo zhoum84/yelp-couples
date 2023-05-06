@@ -75,13 +75,13 @@ export const deleteListItem = createAsyncThunk(
 
 // Create Group
 export const createGroup = createAsyncThunk('group/create', async (groupData) => {
-    const response = await axios.post(url + 'api/create_group/', groupData);
+    const response = await axios.post(url + 'create_group/', groupData);
     return response.data;
   });
   
   // Add User to Group
   export const addUserToGroup = createAsyncThunk('group/addUser', async (userData) => {
-    const response = await axios.post(url + 'api/add_user_to_group/', userData);
+    const response = await axios.post(url + 'add_user_to_group/', userData);
     return response.data;
   });
 

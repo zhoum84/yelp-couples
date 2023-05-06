@@ -4,7 +4,7 @@ import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
-import { createListItem } from '../features/data/dataSlice';
+
 
 
 
@@ -19,6 +19,11 @@ const Home = () => {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   
+  // const user = JSON.parse(localStorage.getItem("user"))
+  // const [userId, setUserId] = useState();
+  // const [username, setUsername] = useState();
+
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -38,7 +43,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (latitude && longitude !== 0) {
+    if (latitude && longitude !== '') {
       dispatch(getResturantsData({ latitude: latitude, longitude: longitude }))
         .unwrap()
         .then(response => {
@@ -49,10 +54,10 @@ const Home = () => {
         });
         
     }
-  }, [ setRestaurantsData, dispatch]);
+  }, [ latitude, longitude,setRestaurantsData, dispatch]);
   
 
-  
+
 
   useEffect(() => {
     const restaurantRatings = restaurantsData.map(restaurant => restaurant.rating);
@@ -73,6 +78,17 @@ const Home = () => {
   const handleCloseMap = () => {
     setShowMap(false);
   };
+
+
+
+
+
+
+
+
+
+
+
 
   // const handleCreateListItem = (user_id, group_id, items) => {
   //   dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))

@@ -6,13 +6,15 @@ import { FaMapMarkerAlt, FaShare, FaStar, FaRegStar } from 'react-icons/fa';
 import '../index.css';
 import Rating from './Rating';
 import Map from './Map';
+import { createListItem } from '../features/data/dataSlice';
 
 
 function Restaurant(props) {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const dispatch = useDispatch();
-  const restaurantsData = useSelector(state => state.data.resturantsData);
+  const user_id = '1'
+  const group_id = 'deb59915-4efb-492f-994c-04fc378ab5f3'
   
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -27,6 +29,37 @@ function Restaurant(props) {
     );
   }, []);
 
+  const handleSubmit = (restaurant) => {
+    const data = {
+      user_id: user_id,
+      group_id: group_id,
+      items: [{
+        resturant_id: restaurant.resturant_id,
+        resturant_name: restaurant.resturant_name,
+        resturant_image: restaurant.resturant_image,
+        resturant_url: restaurant.resturant_url,
+        resturant_categories: restaurant.resturant_categories.toString(),
+        resturant_rating: restaurant.resturant_rating,
+        resturant_address: restaurant.resturant_address,
+        resturant_distance: restaurant.resturant_distance,
+        user_rating: 1,
+
+        
+
+
+      }]
+    };
+    
+    dispatch(createListItem(data))
+      .then(() => {
+        console.log('successfully added item to list')
+      })
+      .catch((error) => {
+        console.log('you suck')
+      });
+  };
+
+  console.log(props.restaurantsData)
 
 
 
@@ -64,13 +97,13 @@ function Restaurant(props) {
                   </a>
                 </div>
               </div>
-              <div className="reviews">
-                <div className="reviews-header" onClick={props.toggleCollapse}>
-                  <div className="collapse-icon">
-                    <h4 >{props.isCollapsed ? "+" : "-"} Add to List</h4>
-                  </div>
-                </div>
-              </div>
+              <div className="reviews-header" onClick={props.toggleCollapse}>
+  <div className="collapse-icon">
+    <h4 onClick={() => handleSubmit(restaurant)}> 
+      + Add to List
+    </h4>
+  </div>
+</div>
             </div>
           ))}
           {props.restaurantsData.length > 0 && (

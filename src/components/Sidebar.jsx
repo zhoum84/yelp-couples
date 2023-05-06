@@ -20,6 +20,9 @@ function Sidebar() {
 
   const navigate = useNavigate();
 
+  const user_id = '1'
+  const group_id = '6c295814-6ee5-40f0-b40a-368ba36160cb'
+
   const linkClick = (link) => {
     navigate(`/${link}`);
   };
@@ -57,9 +60,11 @@ function Sidebar() {
 
       <ul className="features-list">
         <li className="features-item inbox active">
+          <Link to= {`/list/${user_id}/${group_id}`} className="features-item-link">
           <FaCocktail className="features-item-icon" />
           <span className="features-item-text">My Restaurants</span>
           <span className="tooltip">My Restaurants</span>
+          </Link>
         </li>
         <li className="features-item">
           <FaHistory className="features-item-icon" />
