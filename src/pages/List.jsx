@@ -1,4 +1,4 @@
-import {React, useState, useEffect, useParams, initialState} from 'react'
+import {React, useState, useEffect, useParams} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getListItems } from '../features/data/dataSlice'
 import { updateListItem } from '../features/data/dataSlice';
@@ -9,7 +9,7 @@ function List() {
     const dispatch = useDispatch();
     const [listItems, setListItems] = useState([]);
     // const { user_id, group_id } = useParams();
-    const [ranking, setRanking] = useState(initialState || 0);
+    const [ranking, setRanking] = useState( 0);
     const listLength = useSelector(state => state.data.listItems.length);
 
     const user_id = '1'
