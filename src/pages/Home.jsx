@@ -78,6 +78,10 @@ const Home = () => {
   };
 
   
+  //should be able to do something like this but i cant figure it out, so instead I hardcoded it
+  
+  //if(!restaurantsData)
+  //  <Loader/>
 
   return (
     <div>
