@@ -19,18 +19,18 @@ const FormPage = () => {
         ...prevState,
         [e.target.name]: e.target.value,
       };
-
+      
       setInputs(newData);
-
+      
       handleNext(e);
       return newData;
     });
   };
 
   const [display, setDisplay] = useState({
-    0: <Cuisine onClick={handleClick} />,
+    0: <Cuisine onClick={handleClick}/>,
     1: <Price onClick={handleClick} />,
-    2: <Distance onClick={handleClick} />,
+    2: <Distance onClick={handleClick}/>,
   });
 
   const handlePrev = (e) => {
