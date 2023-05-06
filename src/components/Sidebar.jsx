@@ -11,7 +11,7 @@ import {
   FaUserPlus,
   FaBell,
   FaPlusCircle,
-  FaList
+  FaList,
 } from "react-icons/fa";
 import Invite from "./Invite";
 
@@ -21,15 +21,14 @@ function Sidebar() {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const username = JSON.parse(localStorage.getItem("user"));
-    if(username){
-    setUser(username.length? username[0].name : username.name);
-  }})
-  const user_id = '1'
-  const group_id = '6c295814-6ee5-40f0-b40a-368ba36160cb'
-
-  
+    if (username) {
+      setUser(username.length ? username[0].name : username.name);
+    }
+  });
+  const user_id = "1";
+  const group_id = "6c295814-6ee5-40f0-b40a-368ba36160cb";
 
   const handleClick = () => {
     setToggle(!toggle);
@@ -39,10 +38,10 @@ function Sidebar() {
   return (
     <div className={toggle ? "sidebar collapse" : "sidebar"}>
       <div className="logo-name-wrapper">
-          <div className="logo-name">
-            <FaUser className="logo-name__icon" />
-            <span className="logo-name__name">{user}</span>
-          </div>
+        <div className="logo-name">
+          <FaUser className="logo-name__icon" />
+          <span className="logo-name__name">{user}</span>
+        </div>
         <button className={"logo-name__button"} onClick={handleClick}>
           {toggle ? (
             <FaArrowRight className="logo-name__icon" />
@@ -51,23 +50,25 @@ function Sidebar() {
           )}
         </button>
       </div>
-      <div className="message">
 
-        <Link to="/home" style={{ textDecoration: 'none', color: 'white' }} >
-
-        <FaHome className="message-icon" />
-        <span className="message-text">Home</span>
-        <span className="tooltip">Home</span>
-        </Link>
-
-      </div>
+      <Link to="/home" style={{ textDecoration: "none", color: "white" }}>
+        <div className="message">
+          <FaHome className="message-icon" />
+          <span className="message-text">Home</span>
+          <span className="tooltip">Home</span>
+        </div>
+      </Link>
 
       <ul className="features-list">
         <li className="features-item inbox active">
-          <Link to={`/list/${user_id}/${group_id}`} className="features-item-link" style={{ textDecoration: 'none', color: 'white' }} >
-          <FaCocktail className="features-item-icon" />
-          <span className="features-item-text">My Restaurants</span>
-          <span className="tooltip">My Restaurants</span>
+          <Link
+            to={`/list/${user_id}/${group_id}`}
+            className="features-item-link"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <FaCocktail className="features-item-icon" />
+            <span className="features-item-text">My Restaurants</span>
+            <span className="tooltip">My Restaurants</span>
           </Link>
         </li>
         <li className="features-item">
@@ -81,10 +82,10 @@ function Sidebar() {
           <span className="tooltip">Starred</span>
         </li>
         <li className="features-item ">
-         <Link to="/form" style={{ textDecoration: 'none', color: 'white' }} >
-          <FaList className="features-item-icon" />
-          <span className="features-item-text">Get Recommendations</span>
-          <span className="tooltip">Get Recommendations</span>
+          <Link to="/form" style={{ textDecoration: "none", color: "white" }}>
+            <FaList className="features-item-icon" />
+            <span className="features-item-text">Get Recommendations</span>
+            <span className="tooltip">Get Recommendations</span>
           </Link>
         </li>
         <li className="features-item ">
