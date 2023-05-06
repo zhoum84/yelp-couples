@@ -38,7 +38,7 @@ function Header() {
     <div className="header">
       <div style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>Welcome!</div>
       <div className='header-wrapper'>
-        <div className='title'>Yelp For Couples</div>
+        <div className='title'><span style={{color:'red'}}>Yelp </span> &nbsp;For Couples <span style={{color:'red'}}>&hearts; </span></div>
         <div className="search">
         <input type="text" className="searchTerm" placeholder="What are you looking for?"/>
           <button type="submit" className="searchButton">

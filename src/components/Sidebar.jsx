@@ -91,7 +91,7 @@ function Sidebar() {
         <li className="features-item ">
           <FaUserPlus className="features-item-icon" />
           <Invite />
-          <span className="tooltip">Invite Partner</span>
+          <span className="tooltip">Manage Group</span>
         </li>
       </ul>
     </div>
