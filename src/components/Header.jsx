@@ -49,7 +49,7 @@ function Header() {
       <ul>
           {!isUserLoggedIn ?
           <li>
-            <Link to='/' style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>
+            <Link to='/login' style={{ textDecoration: 'none', color: 'black', fontSize:'20px' }}>
               <FaSignInAlt /> Login
             </Link>
           </li>
