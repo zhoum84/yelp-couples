@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getListItems } from '../features/data/dataSlice'
 import { updateListItem } from '../features/data/dataSlice';
 import { deleteListItem } from '../features/data/dataSlice';
+import { getSuggestions } from '../features/data/dataSlice';
 
 
 function List() {
     const dispatch = useDispatch();
     const [listItems, setListItems] = useState([]);
     // const { user_id, group_id } = useParams();
-    const [ranking, setRanking] = useState( 0);
-    const listLength = useSelector(state => state.data.listItems.length);
+    const [ranking, setRanking] = useState(0);
+    
 
     const user_id = '1'
     const group_id = 'deb59915-4efb-492f-994c-04fc378ab5f3'
@@ -38,7 +39,11 @@ function List() {
         setListItems(listItems.filter(item => item.id !== itemId));
       }
 
-
+      const handleSuggestionClick = () => {
+        const usersList = listItems; // Example list of user IDs
+        const groupId = group_id // Example group ID
+        dispatch(getSuggestions({ usersList, groupId }));
+      }
   
 
   return (
@@ -58,6 +63,8 @@ function List() {
       <button onClick={() => handleDeleteClick(item.id)}>Delete</button>
   </div>
 ))}
+
+    <button onClick={handleSuggestionClick}>Get Suggestions</button>
     </div>
   )
 }

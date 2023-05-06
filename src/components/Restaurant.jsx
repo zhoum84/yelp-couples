@@ -39,19 +39,21 @@ function Restaurant(props) {
     const data = {
       user_id: user_id,
       group_id: group_id,
-      items: [
-        {
-          resturant_id: restaurant.resturant_id,
-          resturant_name: restaurant.resturant_name,
-          resturant_image: restaurant.resturant_image,
-          resturant_url: restaurant.resturant_url,
-          resturant_categories: restaurant.resturant_categories.toString(),
-          resturant_rating: restaurant.resturant_rating,
-          resturant_address: restaurant.resturant_address,
-          resturant_distance: restaurant.resturant_distance,
-          user_rating: 1,
-        },
-      ],
+      items: [{
+        resturant_id: restaurant.resturant_id,
+        resturant_name: restaurant.resturant_name,
+        // resturant_image: restaurant.resturant_image,
+        resturant_url: restaurant.resturant_url,
+        resturant_categories: restaurant.resturant_categories.toString(),
+        resturant_rating: restaurant.resturant_rating,
+        // resturant_address: restaurant.resturant_address,
+        resturant_distance: restaurant.resturant_distance,
+        user_rating: 1,
+
+        
+
+
+      }]
     };
 
     dispatch(createListItem(data))

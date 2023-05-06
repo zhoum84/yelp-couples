@@ -93,6 +93,34 @@ export const createGroup = createAsyncThunk('group/create', async (groupData) =>
     }
   );
 
+  export const searchRestaurants = createAsyncThunk(
+    'search/restaurants',
+    async ({ keyword, category, distance }, thunkAPI) => {
+      try {
+        const response = await axios.post(url + 'search/', { keyword, category, distance });
+        return response.data;
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+    }
+  );
+
+  export const getSuggestions = createAsyncThunk(
+    'suggestions/get',
+    async ({ usersList, groupId }, thunkAPI) => {
+      try {
+        const response = await axios({
+          method: 'post',
+          url: (url +'get-suggestion/'),
+          data: { users_list: usersList, group_id: groupId },
+        });
+        return response.data;
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+    }
+  );
+
 // Define the data slice
 export const dataSlice = createSlice({
   name: 'data',
@@ -215,6 +243,32 @@ export const dataSlice = createSlice({
       .addCase(getGroup.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(getSuggestions.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getSuggestions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.suggestions = action.payload.data;
+      })
+      .addCase(getSuggestions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Failed to fetch suggestions';
+      })
+      .addCase(searchRestaurants.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.restaurants = [];
+      })
+      .addCase(searchRestaurants.fulfilled, (state, action) => {
+        state.loading = false;
+        state.restaurants = action.payload;
+      })
+      .addCase(searchRestaurants.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.restaurants = [];
       });
 
   },

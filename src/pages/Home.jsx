@@ -83,21 +83,8 @@ const Home = () => {
   //if(!restaurantsData)
   //  <Loader/>
 
-  // const handleCreateListItem = (user_id, group_id, items) => {
-  //   dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))
-  //     .then((response) => {
-  //       console.log('List and Item created successfully');
-  //       // handle success
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // handle error
-  //     }
-  //     );
-  // };
   return (
     <div>
-      <Loader/>
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>
