@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
 import { useEffect, useState } from 'react';
-import { FaMapMarkerAlt, FaShare, FaStar, FaRegStar } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaShare, FaStar, FaRegStar, FaRoad } from 'react-icons/fa';
 import '../index.css';
 import Rating from './Rating';
 // import Map from './Map';
@@ -101,8 +101,13 @@ function Restaurant(props) {
                     <FaShare />
                   </a>
                 </div>
+
               </div>
               <div className="reviews-header" onClick={props.toggleCollapse}>
+              <div>
+                {restaurant.resturant_categories[1]}
+              </div>
+
   <div className="collapse-icon">
     <h4 onClick={() => handleSubmit(restaurant)}> 
       + Add to List

@@ -4,7 +4,7 @@ import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { getResturantsData } from '../features/data/dataSlice';
-
+import Loader from '../components/Loader';
 
 
 
@@ -63,8 +63,6 @@ const Home = () => {
     const restaurantRatings = restaurantsData.map(restaurant => restaurant.rating);
     setRatings(restaurantRatings);
   }, [restaurantsData]);
-  
-
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -79,16 +77,7 @@ const Home = () => {
     setShowMap(false);
   };
 
-
-
-
-
-
-
-
-
-
-
+  
 
   // const handleCreateListItem = (user_id, group_id, items) => {
   //   dispatch(createListItem({ user_id: '1', group_id:'6c295814-6ee5-40f0-b40a-368ba36160cb', items }))
@@ -104,6 +93,7 @@ const Home = () => {
   // };
   return (
     <div>
+      <Loader/>
       {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
       restaurantsData={restaurantsData}/>}
     </div>
