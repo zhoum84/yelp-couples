@@ -50,9 +50,9 @@ function Restaurant(props) {
         resturant_distance: restaurant.resturant_distance,
         user_rating: 1,
 
-
-
         
+
+
       }]
     };
 
