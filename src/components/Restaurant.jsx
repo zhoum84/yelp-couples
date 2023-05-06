@@ -52,7 +52,7 @@ function Restaurant(props) {
         resturant_distance: restaurant.resturant_distance,
         user_rating: 1,
 
-        
+
 
 
       }]
@@ -118,7 +118,7 @@ function Restaurant(props) {
                 <div className="center-text">
                   {restaurant.resturant_categories[1]}
                 </div>
-                
+
                 <div className="collapse-icon stars">
                   <h4 onClick={() => handleSubmit(restaurant)}>
                     + Add to List
