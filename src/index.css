@@ -323,29 +323,37 @@ body {
 
 .searchTerm {
   width: 500px;
-  border: 3px solid rgb(218, 55, 55);
+  height: 40px;
+  border: 1px solid #E5E4E2;
   border-right: none;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px 0 0 5px;
   outline: none;
-
-  color: #9dbfaf;
+  color: black;
 }
 
 .searchTerm:focus {
-  color: rgb(218, 55, 55);
+  color: black;
 }
 
 .searchButton {
-  width: 40px;
-  height: 45px;
-  border: 1px solid rgb(218, 55, 55);
-  background: rgb(218, 55, 55);
+  width: 150px;
+  height: 40px;
+  background: #0081C9;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.searchGroup {
+  display: flex;
+  justify-content: center;
 }
 
 .title {
@@ -473,8 +481,8 @@ body {
   margin-bottom: 105px;
 }
 .btn-blue {
-  background-color: steelblue;
-  border-color: rgb(61, 108, 147);
+  background-color: #0081C9;
+  border-color: #0081C9;
   display: inline;
   margin-top: 3px;
 }
@@ -669,4 +677,52 @@ button {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.memberHeading {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  text-align: center;
+  font-weight: bolder;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: #36454F;
+}
+
+.tableWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
+}
+
+table {
+  border: 1px solid rgb(211, 211, 211);
+
+  width: 50%;
+  border-collapse: collapse ;
+}
+
+th {
+  background-color: rgba(255, 178, 0, 0.8);
+}
+
+td, th {
+  border-bottom: 1px solid #ddd;  
+  text-align: center;
+  padding: 8px;
+  width: 50%;
+}
+
+
+tr:hover {background-color: rgba(169, 169, 169, 0.5); color: white;}
+
+.inviteClass{
+ margin-top: 30px;
+}
+.inviteText {
+  margin-top: 15px;
+  font-size: 12px;
+  text-align: center;
 }
