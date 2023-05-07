@@ -13,8 +13,11 @@ function List() {
     const [ranking, setRanking] = useState(0);
     
 
-    const user_id = '1'
-    const group_id = 'deb59915-4efb-492f-994c-04fc378ab5f3'
+    const storedData = JSON.parse(localStorage.getItem('user'));
+    const user_id = storedData.id;
+    const group_id = storedData.group_id;
+    // const listItemCounter = JSON.parse(localStorage.getItem('list')) || { counter:0 };
+
 
     useEffect(() => {
         dispatch(getListItems({ user_id, group_id }))
@@ -31,12 +34,13 @@ function List() {
 
       const handleRankingChange = (event, item) => {
         setRanking(event.target.value);
-        dispatch(updateListItem({ id: item.id, ranking: event.target.value }));
+        dispatch(updateListItem({ resturant_id: item.id, ranking: event.target.value }));
       };
 
     const handleDeleteClick = (itemId) => {
         dispatch(deleteListItem(itemId));
         setListItems(listItems.filter(item => item.id !== itemId));
+        // listItemCounter.counter--;
       }
 
       const handleSuggestionClick = () => {
@@ -47,9 +51,9 @@ function List() {
   
 
   return (
-    <div>
-        {listItems.map(item => (
-  <div key={item.id}>
+    <div className='listContainer'>
+        {listItems.length >0 ?listItems.map(item => (
+  <div key={item.resturant_id}>
     <p>Restaurant ID: {item.resturant_id}</p>
     <p>Restaurant Categories: {item.resturant_categories}</p>
     <p>Distance: {(item.resturant_distance * 69.172).toFixed(2)} miles</p>
@@ -62,7 +66,7 @@ function List() {
       </form>
       <button onClick={() => handleDeleteClick(item.id)}>Delete</button>
   </div>
-))}
+)):''}
 
     <button onClick={handleSuggestionClick}>Get Suggestions</button>
     </div>
