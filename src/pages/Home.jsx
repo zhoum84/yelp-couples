@@ -29,6 +29,8 @@ const Home = () => {
   const [isUserNotLoggedIn, setIsUserNotLoggedIn] = useState(false)
   const [isUserNotGrouppedIn, setIsUserNotGrouppedIn] = useState(false)
   const [isListCreated, setIsListCreated] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState(restaurantsData);
 
 
   const handleModal = () =>{
@@ -166,8 +168,33 @@ const Home = () => {
     }
   },[isUserNotGrouppedIn])
 
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchTerm(value);
+
+    const filtered = restaurantsData.filter((item) => {
+      const lowerCaseName = item.resturant_name.toLowerCase();
+      const lowerCaseCategories = item.resturant_categories.map((category) =>
+        category.toLowerCase()
+      );
+      return (
+        lowerCaseName.includes(value) ||
+        lowerCaseCategories.includes(value)
+      );
+    });
+
+    setFilteredData(filtered);
+  };
+
+
   return (
     <div>
+      <div className="searchBar">
+                <input type="text" className="searchInput" placeholder="What are you looking for?" onChange={handleSearch} />
+                <button type="submit" className="searchBtn">
+                    <FaSearch />
+                </button>
+            </div>
         {!isListCreated && (
         <div>
           <button  className='suggestion-button' onClick={handleModal}>
@@ -191,11 +218,12 @@ const Home = () => {
       handleOpenMap={handleOpenMap} 
       handleCloseMap={handleCloseMap} 
       setRestaurantsData={setRestaurantsData}
-      restaurantsData={restaurantsData} 
+      restaurantsData={searchTerm? filteredData : restaurantsData} 
       resturantList = {resturantList} 
       SetResturantList={SetResturantList} 
       isDelete = {false} 
-      handleSubmit={handleSubmit}/>}
+      handleSubmit={handleSubmit}
+      />}
     </div>
 
 
