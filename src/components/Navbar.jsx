@@ -58,12 +58,7 @@ const Navbar = () => {
                 &hearts; 
             </span> */}
             </div>
-            <div className="searchBar">
-                <input type="text" className="searchInput" placeholder="What are you looking for?" />
-                <button type="submit" className="searchBtn">
-                    <FaSearch />
-                </button>
-            </div>
+            
 
             <div className='navItems'>
 
@@ -85,7 +80,7 @@ const Navbar = () => {
                 {/* </div> */}
                  
                 <div className="features-item ">
-                    <Link to="/form" style={{ textDecoration: "none", color: "#36454F", display: 'flex', alignItems: 'center' }}>
+                    <Link to={isUserLoggedIn? "/suggestion" : "/login"} style={{ textDecoration: "none", color: "#36454F", display: 'flex', alignItems: 'center' }}>
                         <FaList className="features-item-icon" />
                         <span className="features-item-text"> Get Suggestions </span>
                         {/* <span className="tooltip">Get Recommendations</span> */}

@@ -17,6 +17,7 @@
 
 .searchBar {
     display: flex;
+    margin-left: 30%;
 }
 
 .searchInput {

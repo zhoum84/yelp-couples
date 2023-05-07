@@ -14,15 +14,6 @@ function MyRestaurant(props) {
             restaurantsData={resturantList} 
             isDelete = {true} 
             handleSubmit ={handleDelete} />
-            <button 
-            type="submit" 
-            className="ans myList stars" 
-            onSubmit={(e) => {
-                e.preventDefault()
-                handleSubmitMyList()
-                }}>
-                Submit
-            </button>
         </Modal>
     
     </div> 

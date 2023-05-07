@@ -1,104 +1,114 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import {useState, useEffect, useParams} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getListItems } from '../features/data/dataSlice'
+import { getListItems, getSuggestions } from '../features/data/dataSlice'
 import { getGroup } from '../features/data/dataSlice';
 
 function Suggestion() {
-    const storedData = JSON.parse(localStorage.getItem('user'));
-    const user_id = storedData?.id;
-    const group_id = storedData?.group_id;
+    const user = JSON.parse(localStorage.getItem('user'));
+    const [userGroupId, setUserGroupId] = useState()
     const [groupData, setGroupData] = useState();
-    const [listItems, setListItems] = useState([]);
-    const [user1,setUser1] = useState({})
-    const [user2,setUser2] = useState({})
-    const [user3,setUser3] = useState({})
-    const [user4,setUser4] = useState({})
+    const [getList, setGetList] =useState([])
+    const [userHasList, setUserhasList] = useState(true);
+    const [suggestion, getSuggestion] = useState()
     const [canSuggest,setCanSuggest] =useState(false)
-    const [hasData,setHasData] = useState(false)
-    const list = listItems.list
     const dispatch = useDispatch();
-    useEffect(() => {
-        if (!group_id) {
-          Navigate('/group');
-        } else if (group_id) {
-          dispatch(getGroup(group_id)).unwrap().then((data) => {
-            setGroupData(data);
-          });
+    const navigate = useNavigate();
+    useEffect(()=>{
+      if(user){
+        if(user.group_id){
+          setUserGroupId(user.group_id)
+        } else {
+          navigate("/group")
         }
-      }, [dispatch, group_id]);
-      
-      useEffect(() => {
-        if (groupData) {
-          Promise.all(
-            groupData.user.map((user) =>
-            dispatch(getListItems({ user_id: user.user_id, group_id }))
-              .unwrap()
-              .then((data) => {
-                const listId = data[0].id;
-                console.log('list', data);
-                return {
-                  userId: user.user_id,
-                  list: listId,
-                };
-              })
-          )
-          ).then((userLists) => {
-            // userLists is an array of objects {userId, list}
-            const updatedGroupData = {
-              ...groupData,
-              users: groupData.user.map((user) => {
-                const userList = userLists.find((ul) => ul.userId === user.user_id);
-                return {
-                  ...user,
-                  hasList: !!userList?.list,
-                };
-              }),
-            };
-            if(!hasData){
-                setGroupData(updatedGroupData)
-                console.log(groupData)
-                const allHasList = groupData.users.every(item => item.hasOwnProperty('hasList') && item.hasList);
-                setCanSuggest(allHasList)
-                setHasData(true)
-                
-                
-            }
-            
-            
+      }
+    },[user])
 
-          });
-        }
-      }, [dispatch,hasData, groupData]);
-      console.log('can suggest',canSuggest)
-      useEffect(()=>{
-        if(canSuggest){
-            const users_list = groupData.users.map((u) => u.user_id);
-            dispatch()
-            console.log('user list:', users_list)
-            setCanSuggest(true)
+    useEffect(()=>{
+      if(userGroupId){
+        dispatch(getGroup(userGroupId))
+        .unwrap()
+        .then((response) => {
+          setGroupData(response)
+      })
+      }
+    },[dispatch,userGroupId])
 
-        }
-      },[canSuggest])
+    useEffect(()=>{
+      if(groupData){
+        groupData.user.map((user)=>{
+          if(user.user_id!==0){
+            dispatch(getListItems({user_id:user.user_id, group_id: userGroupId}))
+            .unwrap()
+            .then((response)=>{
+              setUserhasList(userHasList && response.length > 0)
+              if (response.length === 0){
+                const resp = `${user.user} does not have a list`
+                setGetList([...getList, resp])
+              }
+            })
+          } else {
+            const resp = `${user.user} is not registered`
+            setGetList([...getList, resp])
+            setUserhasList(userHasList && false)
+          }
+        })
+      }
+    },[dispatch,groupData])
 
-return (
-    <div>
-      <h2>Suggestions</h2>
-      {groupData && groupData.user.map(user => {
-        return (
-          <div key={user.user}>
-            <h3>{user.user}</h3>
-            {user.hasList ? (
-              <p>{user.user} has a list!</p>
-            ) : (
-              <p>{user.user} does not have a list.</p>
-            )}
+    useEffect(()=>{
+      if(userHasList && groupData){
+        const users_list = groupData.user.map((user) => user.user_id)
+        const data = {"usersList":users_list, "groupId": userGroupId}
+        dispatch(getSuggestions(data))
+        .unwrap()
+        .then((response) => {
+          getSuggestion(response.data)
+          setCanSuggest(true)
+        })
+        setUserhasList(false)
+      }
+    },[dispatch, userHasList, groupData])
+   
+    return (
+      <div>
+        {canSuggest ? (
+            <div class="circles-container">
+            <div class="circle">
+              <h2 class="title">Favourite Cuisine</h2>
+              <p class="answer"><strong>{suggestion.favourite_cusine}</strong></p>
+            </div>
+            <div class="circle">
+              <h2 class="title">Favourite Restaurant</h2>
+              <p class="answer"><strong>{suggestion.favourite_resturant}</strong></p>
+            </div>
+            <div class="circle">
+              <h2 class="title">Best Rated</h2>
+              <p class="answer"><strong>{suggestion.best_rated}</strong></p>
+            </div>
           </div>
-        );
-      })}
-    </div>
-  );
+        ):(
+            <div>
+            <div className='memberHeading'>Group members</div>
+            <div className='tableWrapper'>
+            <table>
+              <tr>
+                <th>Status</th>
+              </tr>
+              {getList.map((member) => {
+                return (<tr>
+                  <td>{member}</td>
+                </tr>
+                )
+              })}
+            </table>
+            </div>
+            </div>
+        )}
+
+      </div>
+    )
 }
 
 
