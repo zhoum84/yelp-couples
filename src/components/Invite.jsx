@@ -8,6 +8,7 @@ export default function Invite() {
   const [inviteToggle, setInviteToggle] = useState(false);
   const [newMember, setNewMember] = useState('');
   const [nameChange, setNameChange] = useState('');
+  const user = localStorage.getItem("user")
   const dispatch = useDispatch();
   const [group_id, setGroup_id] = useState();
 
@@ -22,21 +23,14 @@ export default function Invite() {
 
   const handleMemberChange = (e) => { setNewMember(e.target.value); }
   const handleNameChange = (e) => { setNameChange(e.target.value); }
-  const user = JSON.parse(localStorage.getItem("user"))
-  const [userId, setUserId] = useState();
-  const [username, setUsername] = useState();
 
-  useEffect(()=>{
-    if(user){
-      setUserId(user.length? user[0].id :  user["user_id"]);
-      setUsername(user.length? user[0].username :  user["username"]);
-    }
-  },[userId, username, user])
   const handleCreateGroup = (e) => {
+    e.preventDefault();
     const newGroupData = {
       group_name: nameChange,
-      user1: userId
+      user1: 1
     }
+    console.log("before create", newGroupData)
     dispatch(createGroup(newGroupData))
       .unwrap()
       .then(data => {
@@ -45,16 +39,6 @@ export default function Invite() {
         setGroup_id([...group_id, { pk: data.pk, group_name: data.group_name }]);
         setNameChange('');
       })
-      .then(data => {
-        // Update the local storage with the new group_id
-        const updatedUser = {
-          ...userLocalStorage,
-          groups_id: [...userLocalStorage.groups_id, data.pk] // Add new group_id to the groups_id array
-        };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        // ...
-      })
-
   }
 
   const sendInvite = (e) => {
@@ -142,3 +126,4 @@ export default function Invite() {
     </div>
   )
 }
+
