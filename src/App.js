@@ -10,6 +10,7 @@ import FormPage from "./pages/FormPage";
 import List from "./pages/List";
 import Navbar from "./components/Navbar";
 import Group from "./pages/Groups";
+import Suggestion from "./pages/Suggestion";
 
 function App() {
   return (
@@ -26,9 +27,9 @@ function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/form' element={<FormPage/>}/>
             <Route path='/group' element={<Group/>}/>
-
-            <Route path='/search/:item' element={<SearchResults/>}/>
-            <Route path='/list/:user_id/:group_id' element={<List />} />
+            <Route path='/suggestion' element={<Suggestion/>}/>
+            {/* <Route path='/search/:item' element={<SearchResults/>}/> */}
+            {/* <Route path='/list/:user_id/:group_id' element={<List />} /> */}
           </Routes>
           </div>
 

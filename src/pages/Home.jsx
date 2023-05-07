@@ -162,7 +162,7 @@ const Home = () => {
   useEffect(()=>{
     if(isUserNotGrouppedIn){
       setIsUserNotGrouppedIn(false)
-      navigate("/groups")
+      navigate("/group")
     }
   },[isUserNotGrouppedIn])
 
