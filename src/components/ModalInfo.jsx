@@ -13,8 +13,8 @@ const ModalInfo = (props) => {
             <h2>How to Get Suggestion</h2>
             <p>
                 First, create group in 'Manage Group'. Invite friends through email to sign up. Each person creates a list by going 
-            through the restaurant listings on the homepage. Once everyone completes their lists, submit 
-            them and get a suggestion for a restaurant to dine at under 'get suggestions'.
+            through the restaurant listings on the homepage and add their preffered restaurants. You can pick up to Five. Once everyone completes their lists, submit 
+            them and get a suggestion for a restaurant for everyone to dine at under 'get suggestions'.
             </p>
             </div>
         </Modal>
