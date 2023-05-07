@@ -57,9 +57,9 @@ export const createListItem = createAsyncThunk(
 
 // Define the thunk for updating a list item
 export const updateListItem = createAsyncThunk(
-  'data/updateListItem',
-  async ({ id, ...data }) => {
-    const response = await axios.put(url + `update-item/${id}/`, data);
+  'listItems/updateListItem',
+  async ({ id, data }) => {
+    const response = await axios.put(url +`list-items/${id}/`, data);
     return response.data;
   }
 );
@@ -90,18 +90,6 @@ export const createGroup = createAsyncThunk('group/create', async (groupData) =>
     async (groupId) => {
       const response = await axios.get(`${url}get-group/?group_id=${groupId}`);
       return response.data;
-    }
-  );
-
-  export const searchRestaurants = createAsyncThunk(
-    'search/restaurants',
-    async ({ keyword, category, distance }, thunkAPI) => {
-      try {
-        const response = await axios.post(url + 'search/', { keyword, category, distance });
-        return response.data;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
-      }
     }
   );
 
@@ -181,10 +169,7 @@ export const dataSlice = createSlice({
       })
       .addCase(updateListItem.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const updatedItemIndex = state.listItems.findIndex((item) => item.id === action.payload.id);
-        if (updatedItemIndex !== -1) {
-          state.listItems[updatedItemIndex] = action.payload;
-        }
+        state.updatedItem = action.payload;
         state.isLoading = false;
       })
       .addCase(updateListItem.rejected, (state, action) => {
@@ -255,20 +240,6 @@ export const dataSlice = createSlice({
       .addCase(getSuggestions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Failed to fetch suggestions';
-      })
-      .addCase(searchRestaurants.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-        state.restaurants = [];
-      })
-      .addCase(searchRestaurants.fulfilled, (state, action) => {
-        state.loading = false;
-        state.restaurants = action.payload;
-      })
-      .addCase(searchRestaurants.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-        state.restaurants = [];
       });
 
   },

@@ -12,8 +12,11 @@ import "../index.css";
 import Rating from "./Rating";
 // import Map from './Map';
 import { createListItem } from "../features/data/dataSlice";
+import updateListItem from '../features/data/dataSlice'
+import { getListItems } from '../features/data/dataSlice'
 import { useNavigate, Link } from "react-router-dom";
 import './Restaurant.css';
+
 
 
 function Restaurant(props) {
