@@ -40,7 +40,7 @@ const Register = () => {
       // getting a good response from our API or catch the AsyncThunkAction
       // rejection to show an error message
       toast.success(`Logged in as ${user.username}`)
-      navigate('/home')
+      navigate('/')
     })
     .catch(toast.error)
 
