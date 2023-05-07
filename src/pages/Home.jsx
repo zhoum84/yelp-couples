@@ -4,10 +4,11 @@ import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { createListItem, getResturantsData } from '../features/data/dataSlice';
-import Loader from '../components/Loader';
-import { FaSearch } from 'react-icons/fa';
 import MyRestaurant from '../components/MyResturants.jsx';
 import { useNavigate } from 'react-router-dom';
+import { FaInfo, FaSearch } from 'react-icons/fa';
+import ModalInfo from '../components/ModalInfo';
+
 
 
 
@@ -31,10 +32,16 @@ const Home = () => {
   const [isListCreated, setIsListCreated] = useState(false)
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState(restaurantsData);
+  const [isModalOpenInfo, setIsModalOpenInfo] = useState(false)
+
 
 
   const handleModal = () =>{
     setIsModalOpen(!isModalOpen)
+  }
+
+  const handleModalInfo = () =>{
+    setIsModalOpenInfo(!isModalOpenInfo)
   }
  
 
@@ -194,7 +201,11 @@ const Home = () => {
                 <button type="submit" className="searchBtn">
                     <FaSearch />
                 </button>
-            </div>
+      </div>
+
+      <button className="info-button" onClick={handleModalInfo}><FaInfo /></button>
+          <ModalInfo isModalOpenInfo={isModalOpenInfo} handleModalInfo={handleModalInfo} />
+        
         {!isListCreated && (
         <div>
           <button  className='suggestion-button' onClick={handleModal}>
