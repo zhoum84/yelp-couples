@@ -236,7 +236,6 @@ const Home = (props) => {
       />}
     </div>
 
-
   )
 }
 
