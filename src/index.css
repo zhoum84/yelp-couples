@@ -828,7 +828,7 @@ tr:hover {background-color: rgba(169, 169, 169, 0.5); color: white;}
   text-align: left;
   width: flex;
   height:auto;
-  font-size: 12px;
+  font-size: 18px;
   left: 25%;
   margin-top: 5vh;
   background-color: rgba(0, 0, 0, 0.6);
@@ -837,4 +837,7 @@ tr:hover {background-color: rgba(169, 169, 169, 0.5); color: white;}
   padding:1em;
   font-family: 'Montserrat', sans-serif;
   font-family: 'Poppins', sans-serif;
+  overflow: auto;
+  max-height: 600px;
+  padding:2em;
 }
