@@ -36,6 +36,8 @@ const Group = () => {
       .unwrap()
       .then((response) => {
         setGroupId(response.pk)
+        user.group_id = response.pk
+        localStorage.setItem("user",JSON.stringify(user))
         setGetGroups(true)
       })
 
