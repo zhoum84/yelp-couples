@@ -67,7 +67,7 @@ const Navbar = () => {
 
             <div className='navItems'>
 
-                <div className="features-item">
+                {/* <div className="features-item">
                     <Link
                         to={isUserLoggedIn?
                             groupId?
@@ -81,8 +81,9 @@ const Navbar = () => {
                         <FaCocktail className="features-item-icon" />
                         <span className="features-item-text">My Restaurants</span>
                         {/* <span className="tooltip">My Restaurants</span> */}
-                    </Link>
-                </div>
+                    {/* </Link> */}
+                {/* </div> */}
+                 
                 <div className="features-item ">
                     <Link to="/form" style={{ textDecoration: "none", color: "#36454F", display: 'flex', alignItems: 'center' }}>
                         <FaList className="features-item-icon" />

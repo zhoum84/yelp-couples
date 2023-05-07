@@ -25,7 +25,6 @@ const Group = () => {
     dispatch(getGroup(group_id))
       .unwrap()
       .then((data) => {
-        console.log("dataji : ", data)
         setGroupMembers(data.user)
       })
   }
@@ -37,7 +36,7 @@ const Group = () => {
       .unwrap()
       .then((response) => {
         setGroupId(response.pk)
-        // setGetGroups(true)
+        setGetGroups(true)
       })
 
   }
@@ -58,13 +57,14 @@ const Group = () => {
   useEffect(() => {
     if (user) {
       setUserId(user.id)
+      if (user.group_id && !isGroupIdSet) {
+        setGroupId(user.group_id)
+        SetIsGroupIdSet(true)
+        setGetGroups(true)
+      }
     }
 
-    if (user.group_id && !isGroupIdSet) {
-      // setGroupId(user.group_id)
-      SetIsGroupIdSet(true)
-      setGetGroups(true)
-    }
+    
   }, [user, getGroups, user.group_id])
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const Group = () => {
                     onChange={(e) => setNewMember(e.target.value)}
                     required
                   />
-                  <button type="submit" className="searchButton">
+                  <button type="submit" className="searchButton" disabled={groupMembers.length === 4}>
                     <FaUserPlus /> Invite
                   </button>
                 </div>
