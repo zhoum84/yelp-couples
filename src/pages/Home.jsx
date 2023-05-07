@@ -5,15 +5,20 @@ import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
 import { createListItem, getResturantsData } from '../features/data/dataSlice';
 import Loader from '../components/Loader';
-import { FaSearch } from 'react-icons/fa';
+import { FaInfo, FaSearch } from 'react-icons/fa';
 import MyRestaurant from '../components/MyResturants.jsx';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import ModalInfo from '../components/ModalInfo';
 
 
 
 
 
-const Home = () => {
+
+const Home = (props) => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"))
   const [restaurantsData, setRestaurantsData] = useState([]);
@@ -25,6 +30,7 @@ const Home = () => {
   const [longitude, setLongitude] = useState('-73.971321');
   const [getResturantDataResponse, SetGetResturantDataResponse] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpenInfo, setIsModalOpenInfo] = useState(false)
   const [resturantCount, setResturantCount] = useState(0)
   const [resturantList, SetResturantList] = useState([])
   const [isUserNotLoggedIn, setIsUserNotLoggedIn] = useState(false)
@@ -37,6 +43,12 @@ const Home = () => {
   const handleModal = () =>{
     setIsModalOpen(!isModalOpen)
   }
+
+  const handleModalInfo = () =>{
+    setIsModalOpenInfo(!isModalOpenInfo)
+  }
+
+  
  
 
   useEffect(() => {
@@ -190,14 +202,11 @@ const Home = () => {
 
   return (
     <div>
-      <div className="searchBar">
-                <input type="text" className="searchInput" placeholder="What are you looking for?" onChange={handleSearch} />
-                <button type="submit" className="searchBtn">
-                    <FaSearch />
-                </button>
-            </div>
+
         {!isListCreated && (
         <div>
+          <button className="info-button" onClick={handleModalInfo}><FaInfo /></button>
+          <ModalInfo isModalOpenInfo={isModalOpenInfo} handleModalInfo={handleModalInfo} />
           <button  className='suggestion-button' onClick={handleModal}>
           {resturantList.length}
           <MyRestaurant 
