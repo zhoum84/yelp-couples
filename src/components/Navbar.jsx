@@ -85,7 +85,7 @@ const Navbar = () => {
                 {/* </div> */}
                  
                 <div className="features-item ">
-                    <Link to="/form" style={{ textDecoration: "none", color: "#36454F", display: 'flex', alignItems: 'center' }}>
+                    <Link to="/suggestion" style={{ textDecoration: "none", color: "#36454F", display: 'flex', alignItems: 'center' }}>
                         <FaList className="features-item-icon" />
                         <span className="features-item-text"> Get Suggestions </span>
                         {/* <span className="tooltip">Get Recommendations</span> */}
