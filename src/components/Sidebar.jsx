@@ -70,11 +70,12 @@ function Sidebar() {
       <ul className="features-list">
         <li className="features-item inbox active">
           <Link
-            to={isUserLoggedIn? 
+            to={isUserLoggedIn?
+              groupId?
               `/list/${userId}/${groupId}`
-              : "/login " }
-
-              // : "/form"
+              : "/form"
+              : "/login " 
+            }
 
             className="features-item-link"
             style={{ textDecoration: "none", color: "white" }}
@@ -99,13 +100,15 @@ function Sidebar() {
             <FaList className="features-item-icon" />
             <span className="features-item-text"> Find </span>
 
-            <span className="tooltip">Get Recommendations</span>
+            <span className="tooltip">Find</span>
           </Link>
         </li>
         <li className="features-item ">
-          <FaUserPlus className="features-item-icon" />
-          <Invite />
-          <span className="tooltip">Manage Group</span>
+          <Link to={isUserLoggedIn? "/group" : "/login" }style={{ textDecoration: "none", color: "white" }}>
+            <FaUserPlus className="features-item-icon" />
+            <span className="features-item-text"> Manage Group </span>
+            <span className="tooltip">Manage Group</span>
+          </Link>
         </li>
       </ul>
     </div>
