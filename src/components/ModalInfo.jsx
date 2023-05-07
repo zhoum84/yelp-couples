@@ -6,6 +6,7 @@ import Modal from "react-modal";
 const ModalInfo = (props) => {
     const { isModalOpenInfo, handleModalInfo} = props;
 
+    
   return (
     <div>
         <Modal className='infoModal' isOpen = {isModalOpenInfo} onRequestClose={handleModalInfo}>
