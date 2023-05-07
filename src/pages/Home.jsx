@@ -3,14 +3,18 @@ import React from 'react';
 import {useState, useEffect } from 'react';
 import Restaurant from '../components/Restaurant';
 import { useDispatch} from 'react-redux';
-import { getResturantsData } from '../features/data/dataSlice';
+import { createListItem, getResturantsData } from '../features/data/dataSlice';
 import Loader from '../components/Loader';
+import { FaSearch } from 'react-icons/fa';
+import MyRestaurant from '../components/MyResturants.jsx';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 const Home = () => {
-
-
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"))
   const [restaurantsData, setRestaurantsData] = useState([]);
   const [ratings, setRatings] = useState(0);
   const [showMap, setShowMap] = useState(false);
@@ -19,12 +23,18 @@ const Home = () => {
   const [latitude, setLatitude] = useState('40.776676');
   const [longitude, setLongitude] = useState('-73.971321');
   const [getResturantDataResponse, SetGetResturantDataResponse] = useState(false)
-  
-  // const user = JSON.parse(localStorage.getItem("user"))
-  // const [userId, setUserId] = useState();
-  // const [username, setUsername] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [resturantCount, setResturantCount] = useState(0)
+  const [resturantList, SetResturantList] = useState([])
+  const [isUserNotLoggedIn, setIsUserNotLoggedIn] = useState(false)
+  const [isUserNotGrouppedIn, setIsUserNotGrouppedIn] = useState(false)
+  const [isListCreated, setIsListCreated] = useState(false)
 
 
+  const handleModal = () =>{
+    setIsModalOpen(!isModalOpen)
+  }
+ 
 
   useEffect(() => {
     if (!isUserLocation){
@@ -92,13 +102,103 @@ const Home = () => {
     setShowMap(false);
   };
 
-  
+  const handleSubmit = (resturant) => {
+      if(resturantList.length < 5){
+        if(resturantList.includes(resturant)){
+          alert("Restaurant already selected!");
+        } else {
+          SetResturantList([...resturantList, resturant])
+        }
+      } else {
+        alert("Resturant limit reached, Please delete or submit")
+      }
+  }
+
+  const handleDelete = (resturant) =>{
+      const updatedRestaurants = resturantList.filter(
+        (selectedRestaurant) => selectedRestaurant !== resturant
+      );
+      SetResturantList(updatedRestaurants);
+  }
+
+  const handleSubmitMyList = () => {
+    let updatedRestaurants = resturantList.map((restaurant, index) => {
+      return { ...restaurant, user_rating: index+1 };
+    })
+    // updatedRestaurants.resturant_categories = updatedRestaurants.resturant_categories.join(", ");
+    updatedRestaurants = updatedRestaurants.map((r) => 
+    {
+      const menu = r.resturant_categories.join(", ")
+      return { ...r, resturant_categories: menu };
+  })
+
+
+    if (user){
+      if (user.group_id){
+        const data = {"user_id":user.id,"group_id":user.group_id,"items":updatedRestaurants}
+        dispatch(createListItem(data))
+        .then(() =>{
+          SetResturantList([])
+          setIsListCreated(true)
+          alert("List Created Successfully\n Go to suggestions")
+        })
+      }
+      else{
+        setIsUserNotGrouppedIn(true)
+      }
+    }
+    else{
+      setIsUserNotLoggedIn(true)
+    }
+  }
+
+  useEffect(()=>{
+    if(isUserNotLoggedIn){
+      setIsUserNotLoggedIn(false)
+      navigate("/login")
+    }
+  },[isUserNotLoggedIn])
+
+  useEffect(()=>{
+    if(isUserNotGrouppedIn){
+      setIsUserNotGrouppedIn(false)
+      navigate("/groups")
+    }
+  },[isUserNotGrouppedIn])
 
   return (
     <div>
-      {restaurantsData && <Restaurant  toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} showMap={showMap} handleOpenMap={handleOpenMap} handleCloseMap={handleCloseMap} setRatings={setRatings} setRestaurantsData={setRestaurantsData}
-      restaurantsData={restaurantsData}/>}
+        {!isListCreated && (
+        <div>
+          <button  className='suggestion-button' onClick={handleModal}>
+          {resturantList.length}
+          <MyRestaurant 
+          isModalOpen = {isModalOpen} 
+          handleModal = {handleModal} 
+          resturantList = {resturantList} 
+          handleDelete ={handleDelete} 
+          handleSubmitMyList = {handleSubmitMyList}
+          />
+        </button>
+        <button  className='suggestion-submit-button' onClick={handleSubmitMyList}>Submit</button>
+        </div>
+        )}
+      {restaurantsData && 
+      <Restaurant  
+      toggleCollapse={toggleCollapse} 
+      isCollapsed={isCollapsed} 
+      showMap={showMap} 
+      handleOpenMap={handleOpenMap} 
+      handleCloseMap={handleCloseMap} 
+      setRestaurantsData={setRestaurantsData}
+      restaurantsData={restaurantsData} 
+      resturantList = {resturantList} 
+      SetResturantList={SetResturantList} 
+      isDelete = {false} 
+      handleSubmit={handleSubmit}/>}
     </div>
+
+
 
   )
 }

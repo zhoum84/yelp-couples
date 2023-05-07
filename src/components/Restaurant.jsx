@@ -13,86 +13,36 @@ import Rating from "./Rating";
 // import Map from './Map';
 import { createListItem } from "../features/data/dataSlice";
 import { useNavigate, Link } from "react-router-dom";
+import './Restaurant.css';
+
 
 function Restaurant(props) {
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const dispatch = useDispatch();
-  const user_id = "1";
-  const group_id = "deb59915-4efb-492f-994c-04fc378ab5f3";
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      },
-      (error) => {
-        console.log(error);
-        // alert('Please enable location access for the app to work correctly');
-      }
-    );
-  }, []);
-
-  const handleSubmit = (restaurant) => {
-    const data = {
-      user_id: user_id,
-      group_id: group_id,
-      items: [{
-        resturant_id: restaurant.resturant_id,
-        resturant_name: restaurant.resturant_name,
-        // resturant_image: restaurant.resturant_image,
-        resturant_url: restaurant.resturant_url,
-        resturant_categories: restaurant.resturant_categories.toString(),
-        resturant_rating: restaurant.resturant_rating,
-        // resturant_address: restaurant.resturant_address,
-        resturant_distance: restaurant.resturant_distance,
-        user_rating: 1,
-
-        
-
-
-      }]
-    };
-
-    dispatch(createListItem(data))
-      .then(() => {
-        console.log("successfully added item to list");
-      })
-      .catch((error) => {
-        console.log("you suck");
-      });
-  };
-
-
   return (
     <div>
       {props.restaurantsData.length > 0 && (
         <div className="restaurantsContainer">
           {props.restaurantsData.map((restaurant, index) => (
             <div className="restaurant" key={index}>
-              {props.restaurantsData.length > 0 ? (
-                <h3 className="head">{restaurant.resturant_name}</h3>
-              ) : (
-                ""
-              )}
+              
               <Link
                 target="_blank"
                 rel="noreferrer"
                 to={restaurant.resturant_url}
               >
                 <div className="image-container">
-                  {props.restaurantsData.length > 0 ? (
-                    <img
-                      className="img"
-                      src={restaurant.resturant_image}
+                  {props.restaurantsData.length > 0 && (
+                    <div
+                      className="cardImg"
+                      style={{backgroundImage: `url(${restaurant.resturant_image})`}}
+                      // src={restaurant.resturant_image}
                       alt={restaurant.resturant_name}
-                    />
-                  ) : (
-                    ""
+                    ></div>
                   )}
                 </div>
               </Link>
+              {props.restaurantsData.length > 0 && (
+                <h3 className="restaurantName">{restaurant.resturant_name}</h3>
+              )}
               <div className="rating-container">
                 <Rating rating={restaurant.resturant_rating} />
                 <div className="map-link">
@@ -113,16 +63,21 @@ function Restaurant(props) {
               <div className="reviews-header" onClick={props.toggleCollapse}>
               <div className="center-text categories">
                 {restaurant.resturant_categories.map((category, index) => (
-                  <span key={index}>{category}</span>
+                  <span key={index}>{category}&nbsp;&nbsp;</span> 
+                  
                 ))}
               </div>
                 
                 <div className="collapse-icon stars">
-                  <h4 onClick={() => handleSubmit(restaurant)}>
+                  {props.isDelete ? 
+                  (<button style={{margin: '0', color:"#D11A2A"}} onClick={() => props.handleSubmit(restaurant)}>
+                   Delete
+                </button>)
+                  : (<button style={{margin: '0'}} onClick={() => props.handleSubmit(restaurant)}>
                     + Add to List
-                  </h4>
+                  </button>)}
                 </div>
-                <Link
+                  <Link
                   target="_blank"
                   rel="noreferrer"
                   to={restaurant.resturant_url}

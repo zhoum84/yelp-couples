@@ -8,19 +8,18 @@ export default function Invite() {
   const [inviteToggle, setInviteToggle] = useState(false);
   const [newMember, setNewMember] = useState('');
   const [nameChange, setNameChange] = useState('');
-  Modal.setAppElement('#root');
+  const user = localStorage.getItem("user")
   const dispatch = useDispatch();
+  const [group_id, setGroup_id] = useState();
 
-  const [group_ids, setGroup_ids] = useState([]);
 
-  useEffect(() => {
-    // check if groupID exists, one call and get groupID + #members
-    const userLocalStorage = JSON.parse(localStorage.getItem("user"));
-    console.log("userLocalStorage", userLocalStorage)
-    console.log(group_ids)
-    // setUserId(userLocalStorage.user);
-    // setGroup_ids(userLocalStorage.group);
-  }, []);
+  useEffect(()=>{
+    if (user){
+      setGroup_id(user.group_id)
+    }
+  })
+
+
 
   const handleMemberChange = (e) => { setNewMember(e.target.value); }
   const handleNameChange = (e) => { setNameChange(e.target.value); }
@@ -36,8 +35,8 @@ export default function Invite() {
       .unwrap()
       .then(data => {
         console.log("create result", data)
-        console.log("group_ids_data", [...group_ids, { pk: data.pk, group_name: data.group_name }]);
-        setGroup_ids([...group_ids, { pk: data.pk, group_name: data.group_name }]);
+        console.log("group_ids_data", [...group_id, { pk: data.pk, group_name: data.group_name }]);
+        setGroup_id([...group_id, { pk: data.pk, group_name: data.group_name }]);
         setNameChange('');
       })
   }
@@ -51,7 +50,7 @@ export default function Invite() {
     const newMemberData = {
       user_email: newMember,
       // user_id: user.user,
-      group_id: group_ids[0].pk
+      group_id: group_id[0].pk
     }
     dispatch(addUserToGroup(newMemberData))
       .unwrap()
@@ -64,10 +63,7 @@ export default function Invite() {
 
   return (
     <div>
-      <span className="features-item-text" onClick={() => setInviteToggle(true)}>Manage Group</span>
-      <>
-        <Modal isOpen={inviteToggle} onRequestClose={() => setInviteToggle(false)}>
-          {group_ids.length > 0 ? (
+          {!group_id? (
             <>
               <form onSubmit={(e) => sendInvite(e)}>
                 <h1 className="invite-text">Invite member to group:</h1>
@@ -88,7 +84,7 @@ export default function Invite() {
                   </div>
                 </div>
                 <h1 className="invite-text">Current Group(s):</h1>
-                {group_ids.map((group, index) => {
+                {group_id.map((group, index) => {
                   return <>
                     <h2 className="invite-text" key={index}>{group.name}</h2>
                   </>
@@ -110,7 +106,7 @@ export default function Invite() {
               </div>
               <form onSubmit={(e) => handleCreateGroup(e)}>
                 <div>
-                  <div className="search">
+                  <div className="searchGroup">
                     <input
                       type="text"
                       className="searchTerm"
@@ -127,8 +123,6 @@ export default function Invite() {
               </form>
             </>
           )}
-        </Modal>
-      </>
     </div>
   )
 }

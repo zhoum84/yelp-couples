@@ -33,7 +33,6 @@ const Login = () => {
     dispatch(login(loginInfo))
       .unwrap()
       .then((user) => {
-        console.log("groups: ",(user.groups_id).length > 0)
         const data = {'id': user.user.id, 'username': user.user.username, 'group_id': (user.groups_id).length > 0? user.groups_id[0] : ""}
         localStorage.setItem("user",JSON.stringify(data))
         toast(`Logged in as ${user.username}`, {
@@ -42,7 +41,7 @@ const Login = () => {
           position: "top-center",
         });
 
-        navigate("/home");
+        navigate("/");
       })
       .catch(toast.error);
   };
