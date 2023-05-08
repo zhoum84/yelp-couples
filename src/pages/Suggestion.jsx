@@ -46,6 +46,9 @@ function Suggestion() {
               if (response.length === 0){
                 const resp = `${user.user} does not have a list`
                 setGetList([...getList, resp])
+              } else {
+                const resp = ` Please make a list`
+                setGetList([...getList, resp])
               }
             })
           } else {
